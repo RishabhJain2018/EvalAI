@@ -152,8 +152,20 @@
         var challenge_create = {
             name: "web.challenge-create",
             parent: "web",
-            url: "/challenges/create",
+            url: "/challenge-create",
             templateUrl: baseUrl + "/web/challenge-create.html",
+            title: 'Create Challenge',
+            controller: 'ChallengeCreateCtrl',
+            controllerAs: 'challengeCreate',
+            // redirectTo: "web.challenge-create.challenge-list",
+            authenticate: true
+        };
+
+        var challenge_create_using_ui = {
+            name: "web.challenge-create-using-ui",
+            parent: "web",
+            url: "/challenge-create-using-ui",
+            templateUrl: baseUrl + "/web/create-challenge/challenge-create-using-ui.html",
             title: 'Create Challenge',
             controller: 'ChallengeCreateCtrl',
             controllerAs: 'challengeCreate',
@@ -428,6 +440,7 @@
 
         // challenge create page
         $stateProvider.state(challenge_create);
+        $stateProvider.state(challenge_create_using_ui);
 
         // challenge details
         $stateProvider.state(challenge_page);
