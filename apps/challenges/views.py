@@ -11,7 +11,6 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 from accounts.permissions import HasVerifiedEmail
 from base.utils import paginated_queryset
-<<<<<<< HEAD
 from challenges.utils import get_challenge_model
 from hosts.models import ChallengeHost, ChallengeHostTeam
 from hosts.utils import get_challenge_host_teams_for_user, is_user_a_host_of_challenge
@@ -21,13 +20,11 @@ from participants.models import Participant, ParticipantTeam
 from participants.utils import (get_participant_teams_for_user,
                                 has_user_participated_in_challenge,
                                 get_participant_team_id_of_user_for_a_challenge,)
-=======
 from challenges.serializers import ZipChallengeSerializer
 from hosts.models import ChallengeHost, ChallengeHostTeam
 from hosts.utils import get_challenge_host_teams_for_user, get_challenge_host_team_model
 from participants.models import Participant, ParticipantTeam
 from participants.utils import get_participant_teams_for_user, has_user_participated_in_challenge
->>>>>>> api-challnge-create-ui
 
 from .models import Challenge, ChallengePhase, ChallengePhaseSplit
 from .permissions import IsChallengeCreator
