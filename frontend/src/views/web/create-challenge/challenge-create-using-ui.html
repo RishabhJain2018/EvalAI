@@ -1,0 +1,154 @@
+<section class="ev-md-container text-center">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="ev-md-container ev-card-body">
+                <div class="pass-title">Step 1</div>
+                <form name="challengeCreateStep1Form" ng-submit="challengeCreateUsingUi.challengeCreateUsingUi(challengeCreateStep1Form.$valid)" novalidate>
+                    <div class="input-field align-left">
+                        <input id="challengeTitle" name="challengeTitle" type="text" class="text-dark-black dark-autofill w-400" required ng-model="challengeCreateUsingUi.challengeTitle">
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        <label class="active" for="challengeTitle">Challenge Title</label>
+                        <div class="wrn-msg text-highlight" ng-messages="challengeCreateStep1Form.title.$error" ng-if="challengeCreateStep1Form.title.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Challenge Title is required.</p>
+                        </div>
+                    </div>
+                    <div class="input-field align-left">
+                        <input id="challengeShortDescription" name="challengeShortDescription" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeShortDescription" required>
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        <label for="challengeShortDescription">Short Description</label>
+<!--                         <div class="wrn-msg text-highlight" ng-messages="challengeCreateStep1Form.title.$error" ng-if="challengeCreateStep1Form.title.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required"> Short description is required</p>
+                        </div> -->
+                    </div>
+                    <div class="input-field align-left">
+<!--                       <trix-editor ng-model-options="{ updateOn: 'blur' }" 
+                                   spellcheck="false" class="trix-content" 
+                                   ng-model="challenge.data"
+                                   angular-trix 
+                                   trix-initialize="trixInitialize(e, editor);" 
+                                   trix-change="trixChange(e, editor);" 
+                                   trix-selection-change="trixSelectionChange(e, editor);" 
+                                   trix-focus="trixFocus(e, editor);" 
+                                   trix-blur="trixBlur(e, editor);" 
+                                   trix-file-accept="trixFileAccept(e, editor);" 
+                                   trix-attachment-add="trixAttachmentAdd(e, editor);" 
+                                   trix-attachment-remove="trixAttachmentRemove(e, editor);" 
+                                   placeholder="Write something.."></trix-editor> -->
+                        <input id="challengeDescription" name="challengeDescription" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeDescription" required>
+                             <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        <label for="challengeDescription">Description</label>
+<!--                         <div class="wrn-msg text-highlight" ng-messages="challengeCreateStep1Form.title.$error" ng-if="challengeCreateStep1Form.title.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required"> Description is required!</p>
+                        </div> -->
+                    </div>
+                    <div class="input-field align-left">
+                        <input id="challengeEvaluationDetails" name="challengeEvaluationDetails" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEvaluationDetails" required>
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>                        
+                            <label for="challengeEvaluationDetails">Evaluation details</label>
+<!--                         <div class="wrn-msg text-highlight" ng-messages="challengeCreateStep1Form.title.$error" ng-if="challengeCreateStep1Form.title.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Evaluation details is required.</p>
+                        </div> -->
+                    </div>
+                    <div class="input-field align-left">
+                        <input id="challengeTermsAndConditions" name="challengeTermsAndConditions" type="text" class="text-dark-black dark-autofill w-400" ng ng-model="challengeCreateUsingUi.challengeTermsAndConditions" required>
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        <label for="challengeTermsAndConditions">Terms and Conditions</label>
+<!--                         <div class="wrn-msg text-highlight" ng-messages="challengeCreateStep1Form.title.$error" ng-if="challengeCreateStep1Form.title.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Terms and Conditions are required !</p>
+                        </div> -->
+                    </div>
+                    <div class="input-field align-left">
+                        <input type="text" id="challengeStartDate" ng-model="challengeCreateUsingUi.challengeStartDate" class="text-dark-black dark-autofill w-400" required>
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        <label for="challengeStartDate">Start Date</label>
+                    </div>
+                    <div class="input-field align-left">
+                        <input type="text" ng-model="challengeCreateUsingUi.challengeEndDate" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEndDate" required>
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        <label for="challengeEndDate">End Date</label>
+                    </div>
+                    <div class="file-field input-field">
+                        <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
+                            <span>Challenge Image</span>
+                            <input name="challengeImage" ngf-select type="file" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeImage" required>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                             <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="file-field input-field">
+                        <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
+                            <span>Evaluation Script</span>
+                            <input name="challengeEvalScript" ngf-select type="file" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEvalScript">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate eval-script" type="text">
+                             <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="align-left reg-control">
+                        <button class="btn ev-btn-dark waves-effect waves-dark grad-btn grad-btn-dark fs-14" type="submit" value="Submit">Submit</button>
+                    </div>
+                    <div ng-if="challengeCreateUsingUi.isFormError" class="wrn-msg text-highlight align-right">
+                    {{challengeCreateUsingUi.formError}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
