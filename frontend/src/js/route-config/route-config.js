@@ -167,8 +167,8 @@
             url: "/challenge-create-using-ui",
             templateUrl: baseUrl + "/web/create-challenge/challenge-create-using-ui.html",
             title: 'Create Challenge',
-            controller: 'ChallengeCreateCtrl',
-            controllerAs: 'challengeCreate',
+            controller: 'ChallengeCreateUsingUiCtrl',
+            controllerAs: 'challengeCreateUsingUi',
             // redirectTo: "web.challenge-create.challenge-list",
             authenticate: true
         };
