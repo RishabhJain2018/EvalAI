@@ -81,6 +81,15 @@
                 $rootScope.notify("info", "Please select a challenge host team!");
             }
         };
+
+        vm.fillChallengeCreationForm = function() {
+            if (hostTeamId) {
+                $state.go('web.challenge-create-using-ui');
+            }
+            else {
+                $rootScope.notify("info", "Please select a challenge host team!");
+            }
+        };
     }
 })();
 
