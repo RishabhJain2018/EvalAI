@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'(?P<challenge_pk>[0-9]+)/challenge_phase/(?P<challenge_phase_pk>[0-9]+)/submissions$',
         views.get_all_submissions_of_challenge,
         name='get_all_submissions_of_challenge'),
+    url(r'challenge/challenge_host_team/(?P<challenge_host_team_pk>[0-9]+)/challenge_ui/step1/$',
+        views.challenge_create_using_ui, name='challenge_create_using_ui'),
 ]
