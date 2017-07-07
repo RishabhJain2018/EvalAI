@@ -1395,3 +1395,38 @@ class GetChallengePhaseSplitTest(BaseChallengePhaseSplitClass):
         response = self.client.get(self.url, {})
         self.assertEqual(response.data, expected)
         self.assertEqual(response.status_code, status.HTTP_406_NOT_ACCEPTABLE)
+
+
+class ChallengeCreateUsingUiTest(BaseAPITestClass):
+
+    def setUp(self):
+        super(ChallengeCreateUsingUiTest, self).setUp()
+        self.url = reverse_lazy('challenges:challenge_create_using_ui',
+                                kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
+        self.data = {
+            "title": "New Challenge title",
+            "short_description": "New challenge short description",
+            "description": "New challenge description",
+            "terms_and_conditions": "New challenge terms and conditions",
+            "submission_guidelines": "New challenge submission guidelines",
+            "evaluation_details": "New challenge evaluation details",
+            "start_date": "{0}{1}".format(self.challenge.start_date.isoformat(), 'Z').replace("+00:00", ""),
+            "end_date": "{0}{1}".format(self.challenge.end_date.isoformat(), 'Z').replace("+00:00", ""),
+            "published": True,
+            "enable_forum": True
+            }
+
+    def test_create_challenge_using_ui_with_all_data(self):
+        self.url = reverse_lazy('challenges:challenge_create_using_ui',
+                                kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
+        response = self.client.post(self.url, self.data)
+        print response.data
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_challenge_using_ui_with_no_data(self):
+        self.url = reverse_lazy('challenges:challenge_create_using_ui',
+                                kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
+
+        del self.data['title']
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

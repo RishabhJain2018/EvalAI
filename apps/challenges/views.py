@@ -11,11 +11,11 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 from accounts.permissions import HasVerifiedEmail
 from base.utils import paginated_queryset
+from challenges.serializers import ZipChallengeSerializer
 from hosts.models import ChallengeHost, ChallengeHostTeam
-from hosts.utils import get_challenge_host_teams_for_user
+from hosts.utils import get_challenge_host_teams_for_user, get_challenge_host_team_model
 from participants.models import Participant, ParticipantTeam
 from participants.utils import get_participant_teams_for_user, has_user_participated_in_challenge
-
 
 from .models import Challenge, ChallengePhase, ChallengePhaseSplit
 from .permissions import IsChallengeCreator
@@ -340,3 +340,21 @@ def challenge_phase_split_list(request, challenge_pk):
     serializer = ChallengePhaseSplitSerializer(result_page, many=True)
     response_data = serializer.data
     return paginator.get_paginated_response(response_data)
+
+
+@throttle_classes([UserRateThrottle])
+@api_view(['POST'])
+@permission_classes((permissions.IsAuthenticated, HasVerifiedEmail))
+@authentication_classes((ExpiringTokenAuthentication,))
+def challenge_create_using_ui(request, challenge_host_team_pk):
+    challenge_host = get_challenge_host_team_model(challenge_host_team_pk)
+    serializer = ZipChallengeSerializer(data=request.data,
+                                        context={'request': request,
+                                                 'challenge_host_team': challenge_host})    
+    if serializer.is_valid():
+        serializer.save()
+        response_data = serializer.instance.pk
+        return Response(response_data, status=status.HTTP_201_CREATED)
+    else:
+        response_data = serializer.errors
+        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
