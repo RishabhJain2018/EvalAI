@@ -545,6 +545,7 @@ class GetAllChallengesTest(BaseAPITestClass):
             creator=self.challenge_host_team,
             published=True,
             enable_forum=True,
+            approved_by_admin=True,
             anonymous_leaderboard=False,
             start_date=timezone.now() - timedelta(days=2),
             end_date=timezone.now() + timedelta(days=1),
@@ -560,6 +561,7 @@ class GetAllChallengesTest(BaseAPITestClass):
             creator=self.challenge_host_team,
             published=True,
             enable_forum=True,
+            approved_by_admin=True,
             anonymous_leaderboard=False,
             start_date=timezone.now() - timedelta(days=2),
             end_date=timezone.now() - timedelta(days=1),
@@ -575,6 +577,7 @@ class GetAllChallengesTest(BaseAPITestClass):
             creator=self.challenge_host_team,
             published=True,
             enable_forum=True,
+            approved_by_admin=True,
             anonymous_leaderboard=False,
             start_date=timezone.now() + timedelta(days=2),
             end_date=timezone.now() + timedelta(days=1),
@@ -1636,5 +1639,166 @@ class ChallengeCreateUsingUiTest(BaseAPITestClass):
                                 kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
 
         del self.data['title']
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class CreateChallengeTest(BaseAPITestClass):
+
+    def setUp(self):
+        super(CreateChallengeTest, self).setUp()
+        self.url = reverse_lazy('challenges:create_challenge',
+                                kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
+        self.data = {
+            "title": "New Challenge title",
+            "short_description": "New challenge short description",
+            "description": "New challenge description",
+            "terms_and_conditions": "New challenge terms and conditions",
+            "submission_guidelines": "New challenge submission guidelines",
+            "evaluation_details": "New challenge evaluation details",
+            "start_date": "{0}{1}".format(self.challenge.start_date.isoformat(), 'Z').replace("+00:00", ""),
+            "end_date": "{0}{1}".format(self.challenge.end_date.isoformat(), 'Z').replace("+00:00", ""),
+            "published": True,
+            "enable_forum": True
+            }
+
+    def test_create_challenge_with_all_data(self):
+        self.url = reverse_lazy('challenges:create_challenge',
+                                kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
+        self.data['evaluation_script'] = SimpleUploadedFile('test_file.zip',
+                                                            'Dummy file content',
+                                                            content_type='application/zip')
+        response = self.client.post(self.url, self.data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_challenge_with_no_data(self):
+        self.url = reverse_lazy('challenges:create_challenge',
+                                kwargs={'challenge_host_team_pk': self.challenge_host_team.pk})
+
+        del self.data['title']
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class CreateLeaderboardTest(BaseAPITestClass):
+
+    def setUp(self):
+        super(CreateLeaderboardTest, self).setUp()
+        self.url = reverse_lazy('challenges:create_leaderboard')
+        self.data = [
+            {"schema": {"key": "value"}},
+            {"schema": {"key2": "value2"}}
+            ]
+
+    def test_create_leaderboard_with_all_data(self):
+        self.url = reverse_lazy('challenges:create_leaderboard')
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_leaderboard_with_no_data(self):
+        self.url = reverse_lazy('challenges:create_leaderboard')
+        self.data = []
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class CreateChallengePhaseTest(BaseChallengePhaseClass, BaseAPITestClass):
+
+    def setUp(self):
+        super(CreateChallengePhaseTest, self).setUp()
+        self.url = reverse_lazy('challenges:create_challenge_phase',
+                                kwargs={'challenge_pk': self.challenge.pk})
+        self.data = [
+            {"name": "Challenge Phase",
+             "description": "Challenge Phase Description",
+             "leaderboard": True,
+             "is_public": True,
+             "is_submission_public": True,
+             "start_date": "{0}{1}".format(self.challenge_phase.start_date.isoformat(), 'Z').replace("+00:00", ""),
+             "end_date": "{0}{1}".format(self.challenge_phase.end_date.isoformat(), 'Z').replace("+00:00", ""),
+             "max-submissions_per_day": 100,
+             "max_submissions": 1000,
+             "codename": "Challenge Phase code name",
+             "challenge": self.challenge.pk},
+
+            {"name": "Challenge Phase2",
+             "description": "Challenge Phase Description2",
+             "leaderboard": True,
+             "is_public": True,
+             "is_submission_public": True,
+             "start_date": "{0}{1}".format(self.challenge_phase.start_date.isoformat(), 'Z').replace("+00:00", ""),
+             "end_date": "{0}{1}".format(self.challenge_phase.end_date.isoformat(), 'Z').replace("+00:00", ""),
+             "max-submissions_per_day": 100,
+             "max_submissions": 1000,
+             "codename": "Challenge Phase code name2",
+             "challenge": self.challenge.pk}
+            ]
+
+    def test_create_challenge_phase_with_all_data(self):
+        self.url = reverse_lazy('challenges:create_challenge_phase',
+                                kwargs={'challenge_pk': self.challenge.pk})
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_leaderboard_with_no_data(self):
+        self.url = reverse_lazy('challenges:create_challenge_phase',
+                                kwargs={'challenge_pk': self.challenge.pk})
+        self.data = []
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class CreateDatasetSplitTest(BaseAPITestClass):
+
+    def setUp(self):
+        super(CreateDatasetSplitTest, self).setUp()
+        self.url = reverse_lazy('challenges:create_dataset_split')
+
+        self.data = [
+            {"name": "Dataset Split1",
+             "codename": "Dataset split codename1"},
+            {"name": "Dataset split2",
+             "codename": "Dataset split codename2"}
+        ]
+
+    def test_create_dataset_split_with_all_data(self):
+        self.url = reverse_lazy('challenges:create_dataset_split')
+
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_dataset_split_with_no_data(self):
+        self.url = reverse_lazy('challenges:create_dataset_split')
+        self.data = []
+        response = self.client.post(self.url, self.data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+
+class CreateChallengePhaseSplitTest(BaseChallengePhaseSplitClass):
+
+    def setUp(self):
+        super(CreateChallengePhaseSplitTest, self).setUp()
+        self.url = reverse_lazy('challenges:create_challenge_phase_split')
+
+        self.data = [
+            {"dataset_split": self.dataset_split.pk,
+             "challenge_phase": self.challenge_phase.pk,
+             "leaderboard": self.leaderboard.pk,
+             "visibility": 1},
+            {"dataset_split": self.dataset_split.pk,
+             "challenge_phase": self.challenge_phase.pk,
+             "leaderboard": self.leaderboard.pk,
+             "visibility": 3}
+            ]
+
+    def test_create_challenge_phase_split_with_all_data(self):
+        self.url = reverse_lazy('challenges:create_challenge_phase_split')
+        response = self.client.post(self.url, self.data)
+        print response
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_dataset_split_with_no_data(self):
+        self.url = reverse_lazy('challenges:create_challenge_phase_split')
+        self.data = []
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

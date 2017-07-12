@@ -56,7 +56,6 @@
                                         angular.element(inputElem).val(null);
                                     }
                                 );
-
                                 angular.element(".file-path").val(null);
                                 $rootScope.notify("success", details.success);
                                 localStorage.removeItem('challengeHostTeamId');

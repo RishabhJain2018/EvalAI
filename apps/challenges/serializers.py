@@ -132,3 +132,9 @@ class ZipChallengePhaseSplitSerializer(serializers.ModelSerializer):
     class Meta:
         model = ChallengePhaseSplit
         fields = '__all__'
+
+class ChallengePhaseUiSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ChallengePhase
+        fields = '__all__'

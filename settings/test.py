@@ -6,8 +6,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'evalai',
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'evalai',
+        'PASSWORD': 'evalai',
         'HOST': 'localhost',
         'PORT': '5432',
     }
