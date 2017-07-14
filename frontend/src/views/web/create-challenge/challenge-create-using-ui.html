@@ -178,7 +178,8 @@
             <div class="ev-md-container ev-card-body">
                 <div class="pass-title">Create Leaderboard</div>
                 <form name="leaderboardCreateForm" ng-submit="challengeCreateUsingUi.leaderboardCreate(leaderboardCreateForm.$valid)" novalidate>
-                <div ng-repeat="leaderboard in leaderboards">
+
+                <div ng-repeat="leaderboard in challengeCreateUsingUi.leaderboards">
                     <div class="input-field align-left">
                          <input id="leaderboardId" name="leaderboardId" type="text" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" required>
                                 <span class="form-icon form-icon-dark">
@@ -188,7 +189,7 @@
                                         </md-tooltip>
                                     </i>
                                 </span>
-                            <label for="challengeTitle">Leader Board Id</label>
+                            <label for="leaderboardId">Leader Board Id</label>
                             <div class="wrn-msg text-highlight" ng-messages="leaderboardCreateForm.leaderboardId.$error" ng-if="leaderboardCreateForm.leaderboardId.$touched || challengeCreateUsingUi.$submitted">
                                 <p ng-message="required">Leader board Id is required.</p>
                             </div>
@@ -208,6 +209,7 @@
                             <p ng-message="required">Leaderboard Schema is required.</p>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col s12 m2">
                            <button class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewLeaderboard()">
@@ -215,7 +217,7 @@
                             </button>
                         </div>
                         <div class="col s12 m2">
-                            <button ng-if="leaderboards.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewLeaderboard($index)">
+                            <button ng-if="challengeCreateUsingUi.leaderboards.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewLeaderboard($index)">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
@@ -235,7 +237,7 @@
 
 <!-- Challenge Phase creation form for step 3 -->
 
-<section ng-if="challengeCreateUsingUi.step3" class="ev-md-container text-center">
+<section ng-if="false" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
@@ -401,6 +403,173 @@
                     </div>
                 </form>
             </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- DataSet Split creation form for step 4 -->
+
+<section ng-if="challengeCreateUsingUi.step3" class="ev-md-container text-center">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="ev-md-container ev-card-body">
+                <div class="pass-title">Create Dataset Split</div>
+                <form name="datasetSplitCreateForm" ng-submit="challengeCreateUsingUi.datasetSplitCreate(datasetSplitCreateForm.$valid)" novalidate>
+                <div ng-repeat="datasetSplit in challengeCreateUsingUi.datasetSplits">
+                    <div class="input-field align-left">
+                         <input id="datasetSplitId" name="datasetSpliId" type="text" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.datasetSplitId" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="datasetSplitId">Dataset Split Id</label>
+                            <div class="wrn-msg text-highlight" ng-messages="datasetSplitCreateForm.datasetSplitdId.$error" ng-if="datasetSplitCreateForm.datasetSplitId.$touched || challengeCreateUsingUi.$submitted">
+                                <p ng-message="required">Dataset Split Id is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field align-left">
+                            <input id="datasetSplitName" name="datasetSplitName" type="text" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.name" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="datasetSplitName">Dataset Split Name</label>
+                        </div>
+                        <div class="wrn-msg text-highlight" ng-messages="datasetSplitCreateForm.datasetSplitName.$error" ng-if="datasetSplitCreateForm.datasetSplitName.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Dataset split name is required.</p>
+                        </div>
+                        <div class="input-field align-left">
+                            <input id="datasetSplitCodename" name="datasetSplitCodename" type="text" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.codename" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="datasetSplitName">Dataset Split Codename</label>
+                        </div>
+                        <div class="wrn-msg text-highlight" ng-messages="datasetSplitCreateForm.datasetSplitCodename.$error" ng-if="datasetSplitCreateForm.datasetSplitCodename.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Dataset split codename is required.</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m2">
+                           <button class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewDatasetSplit()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col s12 m2">
+                            <button ng-if="datasetSplits.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewDatasetSplit($index)">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="align-left reg-control">
+                        <button class="btn ev-btn-dark waves-effect waves-dark grad-btn grad-btn-dark fs-14" type="submit" value="Submit">Submit</button>
+                    </div>
+                    <div ng-if="challengeCreateUsingUi.isFormError" class="wrn-msg text-highlight align-right">
+                    {{challengeCreateUsingUi.formError}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- DataSet Split creation form for step 5 -->
+
+<section ng-if="challengeCreateUsingUi.step5" class="ev-md-container text-center">
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="ev-md-container ev-card-body">
+                <div class="pass-title">Create Challenge Phase Split</div>
+                <form name="challengePhaseSplitCreateForm" ng-submit="challengeCreateUsingUi.challengePhaseSplitCreate(challengePhaseSplitCreateForm.$valid)" novalidate>
+                <div ng-repeat="challengePhaseSplit in challengeCreateUsingUi.challengePhaseSplits">
+                    <div class="input-field align-left">
+                         <input id="challengePhaseSplitChallengePhase" name="challengePhaseSplitChallengePhase" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengePhaseSplit.challenge_phase" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="challengePhaseSplitId">Challenge Phase Id</label>
+                            <div class="wrn-msg text-highlight" ng-messages="challengePhaseSplitCreateForm.challengePhaseSplitChallengePhase.$error" ng-if="challengePhaseSplitCreateForm.challengePhaseSplitChallengePhase.$touched || challengeCreateUsingUi.$submitted">
+                                <p ng-message="required">Challenge Phase Id is required.</p>
+                            </div>
+                        </div>
+                        <div class="input-field align-left">
+                            <input id="challengePhaseSplitDatasetSplit" name="challengePhaseSplitDatasetSplit" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengePhaseSplit.dataset_split" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="datasetSplitId">Dataset Split Id</label>
+                        </div>
+                        <div class="wrn-msg text-highlight" ng-messages="challengePhaseSplitCreateForm.challengePhaseSplitDatasetSplit.$error" ng-if="challengePhaseSplitCreateForm.challengePhaseSplitDatasetSplit.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Dataset split Id is required.</p>
+                        </div>
+                        <div class="input-field align-left">
+                            <input id="challengePhaseSplitLeaderboard" name="challengePhaseSplitLeaderboard" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengePhaseSplit.leaderboard" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="LeaderboardId">Leaderboard Id</label>
+                        </div>
+                        <div class="wrn-msg text-highlight" ng-messages="challengePhaseSplitCreateForm.challengePhaseSplitLeaderboard.$error" ng-if="challengePhaseSplitCreateForm.challengePhaseSplitLeaderboard.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Leaderboard Id</p>
+                        </div>
+                        <div class="input-field align-left">
+                            <input id="challengePhaseSplitVisibility" name="challengePhaseSplitVisibility" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengePhaseSplit.visibility" required>
+                                <span class="form-icon form-icon-dark">
+                                    <i class="fa fa-info-circle">
+                                        <md-tooltip md-direction="right">
+                                            It is a long established fact that a
+                                        </md-tooltip>
+                                    </i>
+                                </span>
+                            <label for="Visibility">Visibility</label>
+                        </div>
+                        <div class="wrn-msg text-highlight" ng-messages="challengePhaseSplitCreateForm.challengePhaseSplitVisibility.$error" ng-if="challengePhaseSplitCreateForm.challengePhaseSplitVisibility.$touched || challengeCreateUsingUi.$submitted">
+                            <p ng-message="required">Visibility</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m2">
+                           <button class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewChallengePhaseSplit()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col s12 m2">
+                            <button ng-if="challengeCreateUsingUi.challengePhaseSplits.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewchallengePhaseSplit($index)">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="align-left reg-control">
+                        <button class="btn ev-btn-dark waves-effect waves-dark grad-btn grad-btn-dark fs-14" type="submit" value="Submit">Submit</button>
+                    </div>
+                    <div ng-if="challengeCreateUsingUi.isFormError" class="wrn-msg text-highlight align-right">
+                    {{challengeCreateUsingUi.formError}}
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </section>

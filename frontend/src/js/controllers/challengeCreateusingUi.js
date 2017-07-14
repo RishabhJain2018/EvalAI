@@ -60,7 +60,6 @@
                         formdata.append("image", vm.challengeImage);
                         formdata.append("evaluation_script", vm.challengeEvalScript);
                         parameters.data = formdata;
-                        console.log(formdata.get('evaluation_script'));
                         parameters.token = userKey;
                         parameters.callback = {
                             onSuccess: function(response) {
@@ -143,16 +142,16 @@
                 }
             };
 
-        $scope.leaderboards = [
+        vm.leaderboards = [
             {"schema": null}
         ];
 
         vm.addNewLeaderboard = function() {
-            $scope.leaderboards.push({"schema": null});
+            vm.leaderboards.push({"schema": null});
         };
 
         vm.removeNewLeaderboard = function(index) {
-            $scope.leaderboards.splice(index, 1);
+            vm.leaderboards.splice(index, 1);
         };
 
         vm.leaderboardCreate = function(leaderboardCreateFormValid){
@@ -160,7 +159,7 @@
                 var parameters = {};
                 parameters.method = 'POST';
                 parameters.url = 'challenges/challenge/leaderboard/step_2/';
-                parameters.data = $scope.leaderboards;
+                parameters.data = vm.leaderboards;
                 parameters.token = userKey;
                 parameters.callback = {
                     onSuccess: function(response) {
@@ -247,7 +246,7 @@
                             vm.step1 = false;
                             vm.step3 = false;
                             $rootScope.notify("success", "Step3 is completed");
-                            utilities.storeData('challenge_phase', data);
+                            utilities.storeData('challengepPhase', data);
                         }
                     },
                     onError: function(response) {
@@ -262,17 +261,17 @@
             }
         };
 
-        $scope.datasetSplits = [
+        vm.datasetSplits = [
             {"name": null,
              "codename": null}
         ];
 
         vm.addNewDatasetSplit = function() {
-            $scope.leaderboards.push({"name": null, "codename": null});
+            vm.leaderboards.push({"name": null, "codename": null});
         };
 
         vm.removeNewDatasetSplit = function(index) {
-            $scope.leaderboards.splice(index, 1);
+            vm.leaderboards.splice(index, 1);
         };
 
         vm. datasetSplitCreate = function(datasetSplitCreateFormValid) {
@@ -280,7 +279,7 @@
                 var parameters = {};
                 parameters.method = 'POST';
                 parameters.url = 'challenges/challenge/dataset_split/step_4/';
-                parameters.data = $scope.datasetSplits;
+                parameters.data = vm.datasetSplits;
                 parameters.token = userKey;
                 parameters.callback = {
                     onSuccess: function(response) {
@@ -308,6 +307,73 @@
                 utilities.sendRequest(parameters);
             } else {
                 console.log("datasetSplit");
+            }
+        };
+
+        vm.challengePhaseSplits = [
+            {"challenge_phase": null,
+             "dataset_split": null,
+             "leaderboard": null,
+             "visibility": null}
+        ];
+
+        vm.addNewChallengePhaseSplit = function() {
+            vm.challengePhaseSplits.push(
+            {"challenge_phase": null,
+             "dataset_split": null,
+             "leaderboard": null,
+             "visibility": null});
+            };
+
+        vm.removeNewChallengePhaseSplit = function(index) {
+            vm.leaderboards.splice(index, 1);
+        };
+
+        vm. challengePhaseSplitCreate = function(challengePhaseSplitCreateFormValid) {
+            if (challengePhaseSplitCreateFormValid) {
+                var parameters = {};
+                parameters.method = 'POST';
+                parameters.url = 'challenges/challenge/challenge_phase_split/step_5/';
+                console.log("challenge phase splits",vm.challengePhaseSplits);
+                var leaderboard = utilities.getData('leaderboard');
+                var datasetSplit = utilities.getData('datasetSplit');
+                console.log(datasetSplit);
+
+                for (var i=0; i<vm.challengePhaseSplits.length; i++) {
+                    // vm.challengePhaseSplits[i].challenge_phase = challengePhase[i].id;
+                    vm.challengePhaseSplits[i].dataset_split = datasetSplit[i].id;
+                    vm.challengePhaseSplits[i].leaderboard = leaderboard[i].id;
+                }
+                console.log("updated challenge phase splits",vm.challengePhaseSplits);
+                parameters.data = vm.challengePhaseSplits;
+                parameters.token = userKey;
+                parameters.callback = {
+                    onSuccess: function(response) {
+                        var status = response.status;
+                        if (status === 201) {
+                            vm.step5 = false;
+                            vm.step4 = false;
+                            vm.step3 = false;
+                            vm.step2 = false;
+                            vm.step1 = false;
+                            $rootScope.notify("success", "Step 5 is completed!");
+                            // utilities.deleteData('challenge');
+                            // utilities.deleteData('leaderboard');
+                            // utilities.deleteData('datasetSplit');
+                        }
+                    },
+                    onError: function(response){
+                        var error = response.data;
+                        var status = response.status;
+                        if (status === 400) {
+                            vm.isFormError = true;
+                            vm.formdata = error;
+                        }
+                    }
+                };
+                utilities.sendRequest(parameters);
+            } else {
+                console.log("ChallengePhaseSplit");
             }
         };
 
