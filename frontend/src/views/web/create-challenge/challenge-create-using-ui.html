@@ -33,9 +33,9 @@
 
                     </div>
                     <div class="input-field align-left">
-<!--                       <trix-editor ng-model-options="{ updateOn: 'blur' }" 
+                        <trix-editor ng-model-options="{ updateOn: 'blur' }" 
                                    spellcheck="false" class="trix-content" 
-                                   ng-model="challenge.data"
+                                   ng-model="challengeCreateUsingUi.challengeDescription"
                                    angular-trix 
                                    trix-initialize="trixInitialize(e, editor);" 
                                    trix-change="trixChange(e, editor);" 
@@ -45,17 +45,14 @@
                                    trix-file-accept="trixFileAccept(e, editor);" 
                                    trix-attachment-add="trixAttachmentAdd(e, editor);" 
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);" 
-                                   placeholder="Write something.."></trix-editor> -->
-                        <input id="challengeDescription" name="challengeDescription" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeDescription" required>
-                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
-                        <label for="challengeDescription">Description</label>
-
+                                   placeholder="Description"></trix-editor>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle description-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="input-field align-left">
                         <input id="challengeEvaluationDetails" name="challengeEvaluationDetails" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEvaluationDetails" required>

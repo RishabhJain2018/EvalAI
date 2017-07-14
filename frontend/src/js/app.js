@@ -12,5 +12,4 @@ angular
 		'ngFileUpload',
 		'toaster',
 		'angularTrix'
-
 	]);
