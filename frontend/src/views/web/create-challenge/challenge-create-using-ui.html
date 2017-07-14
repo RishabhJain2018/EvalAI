@@ -79,7 +79,10 @@
 
                     </div>
                     <div class="input-field align-left">
-                        <input type="text" id="challengeStartDate" ng-model="challengeCreateUsingUi.challengeStartDate" class="text-dark-black dark-autofill w-400" required>
+                    <md-input-container">
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="startDate"
+                             show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.start_date" class="md-input" readonly="readonly">
+                    </md-input-container>
                             <span class="form-icon form-icon-dark">
                                 <i class="fa fa-info-circle">
                                     <md-tooltip md-direction="right">
@@ -90,7 +93,10 @@
                         <label for="challengeStartDate">Start Date</label>
                     </div>
                     <div class="input-field align-left">
-                        <input type="text" ng-model="challengeCreateUsingUi.challengeEndDate" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEndDate" required>
+                    <md-input-container>
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="endDate"
+                             show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.end_date" class="md-input" readonly="readonly">
+                    </md-input-container>
                             <span class="form-icon form-icon-dark">
                                 <i class="fa fa-info-circle">
                                     <md-tooltip md-direction="right">
