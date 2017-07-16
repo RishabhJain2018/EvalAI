@@ -32,7 +32,7 @@ urlpatterns = [
         views.create_challenge, name='create_challenge'),
     url(r'challenge/leaderboard/step_2/$',
         views.create_leaderboard, name='create_leaderboard'),
-    url(r'challenge/challenge_phase/(?P<challenge_pk>[0-9]+)/step_3/$',
+    url(r'challenge/challenge_phase/(?P<pk>[0-9]+)/step_3/$',
         views.create_challenge_phase, name='create_challenge_phase'),
     url(r'challenge/dataset_split/step_4/$',
         views.create_dataset_split, name='create_dataset_split'),

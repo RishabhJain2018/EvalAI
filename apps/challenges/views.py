@@ -11,7 +11,7 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 
 from accounts.permissions import HasVerifiedEmail
 from base.utils import paginated_queryset
-from challenges.utils import get_challenge_model
+from challenges.utils import get_challenge_model, get_challenge_phase_model
 from hosts.models import ChallengeHost, ChallengeHostTeam
 from hosts.utils import get_challenge_host_teams_for_user, is_user_a_host_of_challenge,  get_challenge_host_team_model
 from jobs.models import Submission
@@ -426,6 +426,8 @@ def create_challenge(request, challenge_host_team_pk):
                                                  'challenge_host_team': challenge_host_team})    
     if serializer.is_valid():
         serializer.save()
+        challenge = get_challenge_model(serializer.instance.pk)
+        serializer = ChallengeSerializer(challenge)
         response_data = serializer.data
         return Response(response_data, status=status.HTTP_201_CREATED)
     else:
@@ -453,24 +455,45 @@ def create_leaderboard(request):
 
 
 @throttle_classes([UserRateThrottle])
-@api_view(['POST'])
+@api_view(['POST', 'PUT', 'PATCH'])
 @permission_classes((permissions.IsAuthenticated, HasVerifiedEmail))
 @authentication_classes((ExpiringTokenAuthentication,))
-def create_challenge_phase(request, challenge_pk):
+def create_challenge_phase(request, pk):
+    print "1"
     if request.data == []:
         response_data = {'error': 'The challenge phase can\'t be blank!'}
         return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-    challenge = get_challenge_model(challenge_pk) # noqa
+    if request.method in ['POST']:
 
-    serializer = ChallengePhaseUiSerializer(data=request.data, many=True)
-    if serializer.is_valid():
-        serializer.save()
-        response_data = serializer.data
-        return Response(response_data, status=status.HTTP_201_CREATED)
-    else:
-        response_data = serializer.errors
-        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        challenge = get_challenge_model(pk) # noqa
+
+        serializer = ChallengePhaseUiSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            challenge_phase = get_challenge_phase_model(serializer.instance.pk)
+            serializer = ChallengePhaseSerializer(challenge_phase)
+            response_data = serializer.data
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        else:
+            response_data = serializer.errors
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method in ['PUT', 'PATCH']:
+        challenge_phase = get_challenge_phase_model(pk)
+        serializer = ChallengePhaseUiSerializer(challenge_phase,
+                                                data=request.data,
+                                                context={'request': request},
+                                                partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            challenge_phase = get_challenge_phase_model(serializer.instance.pk)
+            serializer = ChallengePhaseSerializer(challenge_phase, context={'request': request})
+            response_data = serializer.data
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        else:
+            response_data = serializer.data
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
 @throttle_classes([UserRateThrottle])
