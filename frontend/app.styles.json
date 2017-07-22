@@ -15,6 +15,6 @@
        "materialize": "bower_components/materialize/dist/css/materialize.css",
        "AngularJS-Toaster": "bower_components/AngularJS-Toaster/toaster.min.css",
        "trix": "bower_components/trix/dist/trix.css",
-       "angular-material-datetimepicker": "bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css"
+       "angular-material-datetimepicker": "bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"
       }
 }

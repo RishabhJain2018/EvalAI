@@ -1707,7 +1707,7 @@ class CreateChallengePhaseTest(BaseChallengePhaseClass, BaseAPITestClass):
     def setUp(self):
         super(CreateChallengePhaseTest, self).setUp()
         self.url = reverse_lazy('challenges:create_challenge_phase',
-                                kwargs={'challenge_pk': self.challenge.pk})
+                                kwargs={'pk': self.challenge.pk})
         self.data = [
             {"name": "Challenge Phase",
              "description": "Challenge Phase Description",
@@ -1736,13 +1736,13 @@ class CreateChallengePhaseTest(BaseChallengePhaseClass, BaseAPITestClass):
 
     def test_create_challenge_phase_with_all_data(self):
         self.url = reverse_lazy('challenges:create_challenge_phase',
-                                kwargs={'challenge_pk': self.challenge.pk})
+                                kwargs={'pk': self.challenge.pk})
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_create_leaderboard_with_no_data(self):
+    def test_create_challenge_phase_with_no_data(self):
         self.url = reverse_lazy('challenges:create_challenge_phase',
-                                kwargs={'challenge_pk': self.challenge.pk})
+                                kwargs={'pk': self.challenge.pk})
         self.data = []
         response = self.client.post(self.url, self.data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

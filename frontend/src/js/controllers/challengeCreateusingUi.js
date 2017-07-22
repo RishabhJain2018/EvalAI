@@ -31,6 +31,14 @@
         // stop loader
         vm.stopLoader = loaderService.stopLoader;
 
+        vm.formatDate = function(dateTimeObject) {            
+            var dateTime = dateTimeObject.toISOString();
+            var splitDateTime = dateTime.split("T");
+            var date = splitDateTime[0];
+            var time = splitDateTime[1].split(".")[0];
+            return date + " " + time;
+        };
+
         // function to create a challenge using ui form.
         vm.challengeCreate = function(challengeCreateFormValid) {
             if (vm.hostTeamId) {
@@ -47,6 +55,8 @@
                         parameters.method = 'POST';
                         parameters.url = 'challenges/challenge/challenge_host_team/'+ vm.hostTeamId + '/step_1/';
                         var formdata = new FormData();
+                        vm.challengeStartDate = vm.formatDate(vm.challengeStartDate);
+                        vm.challengeEndDate = vm.formatDate(vm.challengeEndDate);
                         formdata.append("title", vm.challengeTitle);
                         formdata.append("short_description", vm.challengeShortDescription);
                         formdata.append("description", vm.challengeDescription);
@@ -58,7 +68,6 @@
                         formdata.append("start_date", vm.challengeStartDate);
                         formdata.append("end_date", vm.challengeEndDate);
                         formdata.append("image", vm.challengeImage);
-                        formdata.append("evaluation_script", vm.challengeEvalScript);
                         parameters.data = formdata;
                         parameters.token = userKey;
                         parameters.callback = {
@@ -376,6 +385,5 @@
                 console.log("ChallengePhaseSplit");
             }
         };
-
     }
 })();

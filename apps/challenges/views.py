@@ -440,11 +440,7 @@ def create_challenge(request, challenge_host_team_pk):
 @permission_classes((permissions.IsAuthenticated, HasVerifiedEmail))
 @authentication_classes((ExpiringTokenAuthentication,))
 def create_leaderboard(request):
-    if request.data == []:
-        response_data = {'error': 'The leaderboard can\'t be blank!'}
-        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
-
-    serializer = LeaderboardSerializer(data=request.data, many=True)
+    serializer = LeaderboardSerializer(data=request.data, many=True, allow_empty=False)
     if serializer.is_valid():
         serializer.save()
         response_data = serializer.data
@@ -459,11 +455,6 @@ def create_leaderboard(request):
 @permission_classes((permissions.IsAuthenticated, HasVerifiedEmail))
 @authentication_classes((ExpiringTokenAuthentication,))
 def create_challenge_phase(request, pk):
-    print "1"
-    if request.data == []:
-        response_data = {'error': 'The challenge phase can\'t be blank!'}
-        return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
-
     if request.method in ['POST']:
 
         challenge = get_challenge_model(pk) # noqa
