@@ -1,6 +1,6 @@
 <!-- Challenge creation form for step 1 -->
 
-<section ng-if="challengeCreateUsingUi.step1" class="ev-md-container text-center">
+<section ng-if="false" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
@@ -21,19 +21,31 @@
                         </div>
                     </div>
                     <div class="input-field align-left">
-                        <input id="challengeShortDescription" name="challengeShortDescription" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeShortDescription" required>
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
-                        <label for="challengeShortDescription">Short Description</label>
-
+                        <trix-editor 
+                                   ng-model-options="{ updateOn: 'blur' }" 
+                                   spellcheck="false" class="trix-content" 
+                                   ng-model="challengeCreateUsingUi.challengeShortDescription"
+                                   angular-trix 
+                                   trix-initialize="trixInitialize(e, editor);" 
+                                   trix-change="trixChange(e, editor);" 
+                                   trix-selection-change="trixSelectionChange(e, editor);" 
+                                   trix-focus="trixFocus(e, editor);" 
+                                   trix-blur="trixBlur(e, editor);" 
+                                   trix-file-accept="trixFileAccept(e, editor);" 
+                                   trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
+                                   trix-attachment-remove="trixAttachmentRemove(e, editor);"
+                                   placeholder="Short Description"></trix-editor>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle description-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="input-field align-left">
-                        <trix-editor ng-model-options="{ updateOn: 'blur' }" 
+                        <trix-editor class="editor"
+                                   ng-model-options="{ updateOn: 'blur' }" 
                                    spellcheck="false" class="trix-content" 
                                    ng-model="challengeCreateUsingUi.challengeDescription"
                                    angular-trix 
@@ -55,27 +67,74 @@
                         </span>
                     </div>
                     <div class="input-field align-left">
-                        <input id="challengeEvaluationDetails" name="challengeEvaluationDetails" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEvaluationDetails" required>
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>                        
-                            <label for="challengeEvaluationDetails">Evaluation details</label>
-
+                        <trix-editor class="editor" 
+                                   ng-model-options="{ updateOn: 'blur' }" 
+                                   spellcheck="false" class="trix-content" 
+                                   ng-model="challengeCreateUsingUi.SubmissionGuidelines"
+                                   angular-trix 
+                                   trix-initialize="trixInitialize(e, editor);" 
+                                   trix-change="trixChange(e, editor);" 
+                                   trix-selection-change="trixSelectionChange(e, editor);" 
+                                   trix-focus="trixFocus(e, editor);" 
+                                   trix-blur="trixBlur(e, editor);" 
+                                   trix-file-accept="trixFileAccept(e, editor);" 
+                                   trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
+                                   trix-attachment-remove="trixAttachmentRemove(e, editor);"
+                                   placeholder="Submission Guidelines"></trix-editor>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle description-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="input-field align-left">
-                        <input id="challengeTermsAndConditions" name="challengeTermsAndConditions" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeTermsAndConditions" required>
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
-                        <label for="challengeTermsAndConditions">Terms and Conditions</label>
+                        <trix-editor class="editor" 
+                                   ng-model-options="{ updateOn: 'blur' }" 
+                                   spellcheck="false" class="trix-content" 
+                                   ng-model="challengeCreateUsingUi.challengeTermsAndConditions"
+                                   angular-trix 
+                                   trix-initialize="trixInitialize(e, editor);" 
+                                   trix-change="trixChange(e, editor);" 
+                                   trix-selection-change="trixSelectionChange(e, editor);" 
+                                   trix-focus="trixFocus(e, editor);" 
+                                   trix-blur="trixBlur(e, editor);" 
+                                   trix-file-accept="trixFileAccept(e, editor);" 
+                                   trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
+                                   trix-attachment-remove="trixAttachmentRemove(e, editor);"
+                                   placeholder="Terms and Conditions"></trix-editor>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle description-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
+                    </div>
+                    <div class="input-field align-left">
+                        <trix-editor class="editor"
+                                   ng-model-options="{ updateOn: 'blur' }" 
+                                   spellcheck="false" class="trix-content" 
+                                   ng-model="challengeCreateUsingUi.challengeEvaluationDetails"
+                                   angular-trix 
+                                   trix-initialize="trixInitialize(e, editor);" 
+                                   trix-change="trixChange(e, editor);" 
+                                   trix-selection-change="trixSelectionChange(e, editor);" 
+                                   trix-focus="trixFocus(e, editor);" 
+                                   trix-blur="trixBlur(e, editor);" 
+                                   trix-file-accept="trixFileAccept(e, editor);" 
+                                   trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
+                                   trix-attachment-remove="trixAttachmentRemove(e, editor);"
+                                   placeholder="Evaluation Details"
+                                   ></trix-editor>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle description-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="input-field align-left">
                             <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challengeStartDate" class="md-input" readonly="readonly" placeholder="Start Date">
@@ -232,13 +291,13 @@
 
 <!-- Challenge Phase creation form for step 3 -->
 
-<section ng-if="false" class="ev-md-container text-center">
+<section ng-if="true" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
                 <div class="pass-title">Create Challenge Phase</div>
                 <form name="challengePhaseCreateForm" ng-submit="challengeCreateUsingUi.challengePhaseCreate(challengePhaseCreateForm.$valid)" novalidate>
-                <div ng-repeat = "challenge_phase in challenge_phases">
+                <div ng-repeat = "challenge_phase in challengeCreateUsingUi.challenge_phases">
                         <div class="input-field align-left">
                             <input id="challengePhaseName" name="challengePhaseName" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.name" required>
                                 <span class="form-icon form-icon-dark">
@@ -267,7 +326,7 @@
 
                         </div>
 
-                        <div class="input-field align-left">
+                         <div class="input-field align-left">
                             <input id="challengePhaseCodename" name="challengePhaseCodename" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.codename" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
@@ -279,7 +338,7 @@
                             <label for="challengePhaseCodename">Challenge Phase Codename</label>
                         </div>
 
-                        <div class="input-field align-left">
+<!--                        <div class="input-field align-left">
                             <input id="challengeMaxSubmissionsPerDay" name="challengeMaxSubmissionsPerDay" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions_per_day" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
@@ -358,7 +417,7 @@
                                         </md-tooltip>
                                     </i>
                                 </span>
-                        </div>
+                        </div> -->
 
                         <div class="file-field input-field">
                             <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
@@ -405,7 +464,7 @@
 
 <!-- DataSet Split creation form for step 4 -->
 
-<section ng-if="challengeCreateUsingUi.step3" class="ev-md-container text-center">
+<section ng-if="challengeCreateUsingUi.step4" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">

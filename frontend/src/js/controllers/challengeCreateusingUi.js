@@ -7,9 +7,9 @@
         .module('evalai')
         .controller('ChallengeCreateUsingUiCtrl', ChallengeCreateUsingUiCtrl);
 
-    ChallengeCreateUsingUiCtrl.$inject = ['utilities', 'loaderService', '$rootScope', '$scope'];
+    ChallengeCreateUsingUiCtrl.$inject = ['utilities', 'loaderService', '$rootScope'];
 
-    function ChallengeCreateUsingUiCtrl(utilities, loaderService, $rootScope, $scope) {
+    function ChallengeCreateUsingUiCtrl(utilities, loaderService, $rootScope) {
         var vm = this;
         var userKey = utilities.getData('userKey');
         vm.hostTeamId = utilities.getData('challengeHostTeamId');
@@ -200,71 +200,66 @@
         vm.challengeId = utilities.getData('challenge').id;
         console.log(vm.challengeId);
 
-        $scope.challenge_phases = [
+        vm.challenge_phases = [
             {
              "name": null,
              "description": null,
-             "start_date": null,
-             "end_date": null,
-             "is_public": null,
-             "is_submission_public": null,
-             "max_submissions_per_day": null,
-             "max_submissions": null,
-             "codename": null,
-             "leaderboard_public": null,
              "test_annotation": null,
+             "codename": null,
              "challenge": vm.challengeId
             }
         ];
 
         vm.addNewChallengePhase = function() {
-            $scope.challenge_phases.push({
+            vm.challenge_phases.push({
              "name": null,
              "description": null,
-             "start_date": null,
-             "end_date": null,
-             "is_public": null,
-             "is_submission_public": null,
-             "max_submissions_per_day": null,
-             "max_submissions": null,
-             "codename": null,
-             "leaderboard_public": null,
              "test_annotation": null,
+             "codename": null,
              "challenge": vm.challengeId
             });
         };
 
         vm.removeNewChallengePhase = function(index) {
-            $scope.challenge_phases.splice(index, 1);
+            vm.challenge_phases.splice(index, 1);
         };
 
         vm.challengePhaseCreate = function(challengePhaseCreateFormValid){
             if (challengePhaseCreateFormValid){
                 var parameters = {};
-                parameters.method = 'POST';
-                parameters.url = 'challenges/challenge/challenge_phase/'+ vm.challengeId +'/step_3/';
-                parameters.data = $scope.challenge_phases;
-                parameters.token = userKey;
-                parameters.callback = {
-                    onSuccess: function(response) {
-                        var status = response.status;
-                        var data = response.data;
-                        if (status === 201) {
-                            vm.step4 = true;
-                            vm.step2 = false;
-                            vm.step1 = false;
-                            vm.step3 = false;
-                            $rootScope.notify("success", "Step3 is completed");
-                            utilities.storeData('challengepPhase', data);
+                console.log("challenge phases", vm.challenge_phases);
+                for (var i=0; i<vm.challenge_phases.length; i++) {
+                    var formdata = new FormData();
+                    formdata.append("name", vm.challenge_phases[i].name);
+                    formdata.append("description", vm.challenge_phases[i].description);
+                    formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
+                    formdata.append("codename", vm.challenge_phases[i].codename);
+                    formdata.append("challenge", vm.challengeId);
+                    parameters.method = 'POST';
+                    parameters.url = 'challenges/challenge/challenge_phase/'+ vm.challengeId +'/step_3/';
+                    parameters.data = formdata;
+                    parameters.token = userKey;
+                    parameters.callback = {
+                        onSuccess: function(response) {
+                            var status = response.status;
+                            var data = response.data;
+                            if (status === 201) {
+                                vm.step4 = true;
+                                vm.step2 = false;
+                                vm.step1 = false;
+                                vm.step3 = false;
+                                $rootScope.notify("success", "Step3 is completed");
+                                utilities.storeData('challengepPhase', data);
+                            }
+                        },
+                        onError: function(response) {
+                            var error = response.data;
+                            vm.isFormError = true;
+                            vm.formdata = error;
                         }
-                    },
-                    onError: function(response) {
-                        var error = response.data;
-                        vm.isFormError = true;
-                        vm.formdata = error;
-                    }
-                };
-                utilities.sendRequest(parameters, 'header', 'upload');
+                    };
+                    utilities.sendRequest(parameters, 'header', 'upload');
+                }
             }else {
                 console.log("Challenge Phase");   
             }
