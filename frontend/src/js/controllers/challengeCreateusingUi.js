@@ -24,6 +24,8 @@
         vm.step3 = false;
         vm.step4 = false;
         vm.step5 = false;
+        vm.challengeEnableForum = false;
+        vm.challengePublicallyAvailable = false;
 
         // start loader
         vm.startLoader = loaderService.startLoader;
@@ -31,7 +33,8 @@
         // stop loader
         vm.stopLoader = loaderService.stopLoader;
 
-        vm.formatDate = function(dateTimeObject) {            
+        vm.formatDate = function(dateTimeObject) {
+            console.log(dateTimeObject);          
             var dateTime = dateTimeObject.toISOString();
             var splitDateTime = dateTime.split("T");
             var date = splitDateTime[0];
@@ -40,6 +43,7 @@
         };
 
         // function to create a challenge using ui form.
+
         vm.challengeCreate = function(challengeCreateFormValid) {
             if (vm.hostTeamId) {
                 if (challengeCreateFormValid) {
@@ -68,12 +72,14 @@
                         formdata.append("start_date", vm.challengeStartDate);
                         formdata.append("end_date", vm.challengeEndDate);
                         formdata.append("image", vm.challengeImage);
+                        formdata.append("evaluation_script", vm.challengeEvalScript);
                         parameters.data = formdata;
                         parameters.token = userKey;
                         parameters.callback = {
                             onSuccess: function(response) {
                                 var status = response.status;
                                 var data = response.data;
+                                console.log("Challenge", data);
                                 if (status === 201)
                                 {   
                                     vm.step2 = true;
@@ -169,11 +175,13 @@
                 parameters.method = 'POST';
                 parameters.url = 'challenges/challenge/leaderboard/step_2/';
                 parameters.data = vm.leaderboards;
+                console.log(vm.leaderboards);
                 parameters.token = userKey;
                 parameters.callback = {
                     onSuccess: function(response) {
                         var status = response.status;
                         var data = response.data;
+                        console.log("leaderboards", data);
                         if (status === 201) {
                             vm.step3 = true;
                             vm.step2 = false;
@@ -197,16 +205,16 @@
             }
         };
 
-        vm.challengeId = utilities.getData('challenge').id;
-        console.log(vm.challengeId);
-
         vm.challenge_phases = [
             {
              "name": null,
              "description": null,
-             "test_annotation": null,
              "codename": null,
-             "challenge": vm.challengeId
+             "max_submissions_per_day": null,
+             "max_submissions": null,
+             "start_date": null,
+             "end_date": null,
+             "test_annotation": null,
             }
         ];
 
@@ -214,9 +222,12 @@
             vm.challenge_phases.push({
              "name": null,
              "description": null,
-             "test_annotation": null,
              "codename": null,
-             "challenge": vm.challengeId
+             "max_submissions_per_day": null,
+             "max_submissions": null,
+             "start_date": null,
+             "end_date": null,
+             "test_annotation": null,
             });
         };
 
@@ -225,15 +236,26 @@
         };
 
         vm.challengePhaseCreate = function(challengePhaseCreateFormValid){
-            if (challengePhaseCreateFormValid){
-                var parameters = {};
-                console.log("challenge phases", vm.challenge_phases);
+            if (challengePhaseCreateFormValid) {
+                vm.challengeId = utilities.getData('challenge').id;
+
                 for (var i=0; i<vm.challenge_phases.length; i++) {
+                    var challengePhaseList = [];
                     var formdata = new FormData();
+                    var parameters = {};
+                    vm.challenge_phases[i].start_date = vm.formatDate(vm.challenge_phases[i].start_date);
+                    vm.challenge_phases[i].end_date = vm.formatDate(vm.challenge_phases[i].end_date);
                     formdata.append("name", vm.challenge_phases[i].name);
                     formdata.append("description", vm.challenge_phases[i].description);
-                    formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
                     formdata.append("codename", vm.challenge_phases[i].codename);
+                    formdata.append("max_submissions_per_day", vm.challenge_phases[i].max_submissions_per_day);
+                    formdata.append("max_submissions", vm.challenge_phases[i].max_submissions);
+                    formdata.append("start_date", vm.challenge_phases[i].start_date);
+                    formdata.append("end_date", vm.challenge_phases[i].end_date);
+                    // formdata.append("leaderboard_public", vm.challenge_phases[i].leaderboard_public);
+                    // formdata.append("is_public", vm.challenge_phases[i].is_public);
+                    // formdata.append("is_submission_public", vm.challenge_phases[i].is_submission_public);
+                    formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
                     formdata.append("challenge", vm.challengeId);
                     parameters.method = 'POST';
                     parameters.url = 'challenges/challenge/challenge_phase/'+ vm.challengeId +'/step_3/';
@@ -243,13 +265,15 @@
                         onSuccess: function(response) {
                             var status = response.status;
                             var data = response.data;
+                            challengePhaseList.push(data);
                             if (status === 201) {
                                 vm.step4 = true;
                                 vm.step2 = false;
                                 vm.step1 = false;
                                 vm.step3 = false;
+                                console.log("Challenge phase", challengePhaseList);
+                                utilities.storeData('challengePhase', challengePhaseList);
                                 $rootScope.notify("success", "Step3 is completed");
-                                utilities.storeData('challengepPhase', data);
                             }
                         },
                         onError: function(response) {
@@ -259,7 +283,7 @@
                         }
                     };
                     utilities.sendRequest(parameters, 'header', 'upload');
-                }
+                    }
             }else {
                 console.log("Challenge Phase");   
             }
@@ -289,6 +313,7 @@
                     onSuccess: function(response) {
                         var status = response.status;
                         var data = response.data;
+                        console.log("Dataset Split", data);
                         if (status === 201) {
                             vm.step5 = true;
                             vm.step4 = false;
@@ -330,7 +355,7 @@
             };
 
         vm.removeNewChallengePhaseSplit = function(index) {
-            vm.leaderboards.splice(index, 1);
+            vm.challengePhaseSplits.splice(index, 1);
         };
 
         vm. challengePhaseSplitCreate = function(challengePhaseSplitCreateFormValid) {
@@ -338,22 +363,25 @@
                 var parameters = {};
                 parameters.method = 'POST';
                 parameters.url = 'challenges/challenge/challenge_phase_split/step_5/';
-                console.log("challenge phase splits",vm.challengePhaseSplits);
+
+                var challengePhase = utilities.getData('challengePhase');
                 var leaderboard = utilities.getData('leaderboard');
                 var datasetSplit = utilities.getData('datasetSplit');
-                console.log(datasetSplit);
 
                 for (var i=0; i<vm.challengePhaseSplits.length; i++) {
-                    // vm.challengePhaseSplits[i].challenge_phase = challengePhase[i].id;
-                    vm.challengePhaseSplits[i].dataset_split = datasetSplit[i].id;
-                    vm.challengePhaseSplits[i].leaderboard = leaderboard[i].id;
+
+                    vm.challengePhaseSplits[i].challenge_phase = challengePhase[vm.challengePhaseSplits[i].challenge_phase -1].id;
+                    vm.challengePhaseSplits[i].dataset_split = datasetSplit[vm.challengePhaseSplits[i].dataset_split -1].id;
+                    vm.challengePhaseSplits[i].leaderboard = leaderboard[vm.challengePhaseSplits[i].leaderboard - 1].id;
                 }
+
                 console.log("updated challenge phase splits",vm.challengePhaseSplits);
                 parameters.data = vm.challengePhaseSplits;
                 parameters.token = userKey;
                 parameters.callback = {
                     onSuccess: function(response) {
                         var status = response.status;
+                        console.log("Challenge Phase Split", response.data);
                         if (status === 201) {
                             vm.step5 = false;
                             vm.step4 = false;
@@ -362,8 +390,10 @@
                             vm.step1 = false;
                             $rootScope.notify("success", "Step 5 is completed!");
                             // utilities.deleteData('challenge');
+                            // utilities.deleteData('challengePhase');
                             // utilities.deleteData('leaderboard');
                             // utilities.deleteData('datasetSplit');
+
                         }
                     },
                     onError: function(response){

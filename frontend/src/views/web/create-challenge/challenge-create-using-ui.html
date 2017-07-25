@@ -1,6 +1,6 @@
 <!-- Challenge creation form for step 1 -->
 
-<section ng-if="false" class="ev-md-container text-center">
+<section ng-if="challengeCreateUsingUi.step1" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
@@ -147,37 +147,37 @@
                             </span>
                     </div>
                     <div class="input-field align-left">
-                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeEndDate"
-                             show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challengeEndDate" class="md-input" readonly="readonly" placeholder="End Date">
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
+                        <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeEndDate"
+                         show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challengeEndDate" class="md-input" readonly="readonly" placeholder="End Date">
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="input-field align-left">
-                        <input type="checkbox" id="challengeEnableForum" name="challengeEnableForum" ng-model="challengeCreateUsingUi.challengeEnableForum" required>
-                            <label for="challengeEnableForum">Enable Forum</label>
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
+                        <input type="checkbox" id="challengeEnableForum" name="challengeEnableForum" ng-model="challengeCreateUsingUi.challengeEnableForum" aria-invalid="false" value="challengeCreateUsingUi.challengeEnableForum"  required>
+                        <label for="challengeEnableForum">Enable Forum</label>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="input-field align-left">
-                        <input type="checkbox" id="challengePublicallyAvailable" name="challengePublicallyAvailable" ng-model="challengeCreateUsingUi.challengePublicallyAvailable" required>
-                            <label for="challengePublicallyAvailable" class="checkbox-field">Publically Available</label>
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
+                        <input type="checkbox" id="challengePublicallyAvailable" name="challengePublicallyAvailable" ng-model="challengeCreateUsingUi.challengePublicallyAvailable" value="challengeCreateUsingUi.challengePublicallyAvailable" aria-invalid="false" required>
+                        <label for="challengePublicallyAvailable" class="checkbox-field">Publically Available</label>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
                     </div>
                     <div class="file-field input-field">
                         <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
@@ -266,12 +266,12 @@
 
                     <div class="row">
                         <div class="col s12 m2">
-                           <button class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewLeaderboard()">
+                           <button class="btn-floating btn-pagination waves-effect waves-dark" type="button" ng-click="challengeCreateUsingUi.addNewLeaderboard()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                         <div class="col s12 m2">
-                            <button ng-if="challengeCreateUsingUi.leaderboards.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewLeaderboard($index)">
+                            <button ng-if="challengeCreateUsingUi.leaderboards.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" type="button" ng-click="challengeCreateUsingUi.removeNewLeaderboard($index)">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
@@ -291,7 +291,7 @@
 
 <!-- Challenge Phase creation form for step 3 -->
 
-<section ng-if="true" class="ev-md-container text-center">
+<section ng-if="challengeCreateUsingUi.step3" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
@@ -313,18 +313,29 @@
                             </div>
                         </div>
 
-                        <div class="input-field align-left">
-                            <input id="challengePhaseDescription" name="challengePhaseDescription" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.description" required>
-                                <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
-                                        <md-tooltip md-direction="right">
-                                            It is a long established fact that a
-                                        </md-tooltip>
-                                    </i>
-                                </span>
-                            <label for="challengePhaseDescription">Challenge Phase Description</label>
-
-                        </div>
+                    <div class="input-field align-left">
+                        <trix-editor class="editor"
+                                   ng-model-options="{ updateOn: 'blur' }" 
+                                   spellcheck="false" class="trix-content" 
+                                   ng-model="challenge_phase.description"
+                                   angular-trix 
+                                   trix-initialize="trixInitialize(e, editor);" 
+                                   trix-change="trixChange(e, editor);" 
+                                   trix-selection-change="trixSelectionChange(e, editor);" 
+                                   trix-focus="trixFocus(e, editor);" 
+                                   trix-blur="trixBlur(e, editor);" 
+                                   trix-file-accept="trixFileAccept(e, editor);" 
+                                   trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
+                                   trix-attachment-remove="trixAttachmentRemove(e, editor);"
+                                   placeholder="Description"></trix-editor>
+                        <span class="form-icon form-icon-dark">
+                            <i class="fa fa-info-circle description-circle">
+                                <md-tooltip md-direction="right">
+                                    It is a long established fact that a
+                                </md-tooltip>
+                            </i>
+                        </span>
+                    </div>
 
                          <div class="input-field align-left">
                             <input id="challengePhaseCodename" name="challengePhaseCodename" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.codename" required>
@@ -338,8 +349,8 @@
                             <label for="challengePhaseCodename">Challenge Phase Codename</label>
                         </div>
 
-<!--                        <div class="input-field align-left">
-                            <input id="challengeMaxSubmissionsPerDay" name="challengeMaxSubmissionsPerDay" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions_per_day" required>
+                       <div class="input-field align-left">
+                            <input id="challengeMaxSubmissionsPerDay" name="challengeMaxSubmissionsPerDay" type="number" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions_per_day" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
                                         <md-tooltip md-direction="right">
@@ -351,7 +362,7 @@
                         </div>
 
                         <div class="input-field align-left">
-                            <input id="challengeMaxSubmissions" name="challengeMaxSubmissions" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions" required>
+                            <input id="challengeMaxSubmissions" name="challengeMaxSubmissions" type="number" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
                                         <md-tooltip md-direction="right">
@@ -362,29 +373,28 @@
                                 <label for="challengeMaxSubmissions">Max submissions Total</label>
                         </div>
 
-                        <div class="input-field align-left">
-                            <input type="text" id="challengePhaseStartDate" ng-model="challenge_phase.start_date" class="text-dark-black dark-autofill w-400" required>
-                                <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
-                                        <md-tooltip md-direction="right">
-                                            It is a long established fact that a
-                                        </md-tooltip>
-                                    </i>
-                                </span>
-                            <label for="challengePhaseStartDate">Start Date</label>
-                        </div>
-                        <div class="input-field align-left">
-                            <input type="text" ng-model="challenge_phase.end_date" class="text-dark-black dark-autofill w-400" required>
-                                <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
-                                        <md-tooltip md-direction="right">
-                                            It is a long established fact that a
-                                        </md-tooltip>
-                                    </i>
-                                </span>
-                            <label for="challengePhaseEndDate">End Date</label>
-                        </div>
-                        <div class="input-field align-left">
+                    <div class="input-field align-left">
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challenge_phase.start_date" class="md-input" readonly="readonly" placeholder="Start Date">
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                    </div>
+
+                    <div class="input-field align-left">
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challenge_phase.end_date" class="md-input" readonly="readonly" placeholder="End Date">
+                            <span class="form-icon form-icon-dark">
+                                <i class="fa fa-info-circle">
+                                    <md-tooltip md-direction="right">
+                                        It is a long established fact that a
+                                    </md-tooltip>
+                                </i>
+                            </span>
+                    </div>
+<!--                         <div class="input-field align-left">
                             <input type="checkbox" id="challengePhaseLeaderboardPublic" name="challengePhaseLeaderboardPublic" ng-model="challenge_phase.leaderboard_public" required>
                                 <label for="challengePhaseLeaderboardPublic">Leaderboard Public</label>
                                 <span class="form-icon form-icon-dark">
@@ -438,12 +448,12 @@
                     </div>
                     <div class="row">
                         <div class="col s12 m2">
-                           <button class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewChallengePhase()">
+                           <button type="button" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewChallengePhase()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                         <div class="col s12 m2">
-                            <button ng-if="challenge_phases.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewChallengePhase($index)">
+                            <button type="button" ng-if="challengeCreateUsingUi.challenge_phases.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewChallengePhase($index)">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
@@ -516,12 +526,12 @@
                     </div>
                     <div class="row">
                         <div class="col s12 m2">
-                           <button class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewDatasetSplit()">
+                           <button type="button" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.addNewDatasetSplit()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                         <div class="col s12 m2">
-                            <button ng-if="datasetSplits.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewDatasetSplit($index)">
+                            <button type="button" ng-if="datasetSplits.length > 1" class="btn-floating btn-pagination waves-effect waves-dark" ng-click="challengeCreateUsingUi.removeNewDatasetSplit($index)">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
