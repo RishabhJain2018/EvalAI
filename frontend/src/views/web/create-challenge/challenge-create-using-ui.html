@@ -34,14 +34,8 @@
                                    trix-file-accept="trixFileAccept(e, editor);" 
                                    trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);"
+                                   class="trix-content"
                                    placeholder="Short Description"></trix-editor>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle description-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
                     <div class="input-field align-left">
                         <trix-editor class="editor"
@@ -58,13 +52,6 @@
                                    trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);"
                                    placeholder="Description"></trix-editor>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle description-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
                     <div class="input-field align-left">
                         <trix-editor class="editor" 
@@ -81,13 +68,6 @@
                                    trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);"
                                    placeholder="Submission Guidelines"></trix-editor>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle description-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
                     <div class="input-field align-left">
                         <trix-editor class="editor" 
@@ -104,13 +84,6 @@
                                    trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);"
                                    placeholder="Terms and Conditions"></trix-editor>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle description-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
                     <div class="input-field align-left">
                         <trix-editor class="editor"
@@ -128,13 +101,6 @@
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);"
                                    placeholder="Evaluation Details"
                                    ></trix-editor>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle description-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
                     <div class="input-field align-left">
                             <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challengeStartDate" class="md-input" readonly="readonly" placeholder="Start Date">
@@ -232,7 +198,6 @@
             <div class="ev-md-container ev-card-body">
                 <div class="pass-title">Create Leaderboard</div>
                 <form name="leaderboardCreateForm" ng-submit="challengeCreateUsingUi.leaderboardCreate(leaderboardCreateForm.$valid)" novalidate>
-
                 <div ng-repeat="leaderboard in challengeCreateUsingUi.leaderboards">
                     <div class="input-field align-left">
                          <input id="leaderboardId" name="leaderboardId" type="text" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" required>
@@ -328,15 +293,7 @@
                                    trix-attachment-add="challengeCreateUsingUi.trixAttachmentAdd(e, editor);" 
                                    trix-attachment-remove="trixAttachmentRemove(e, editor);"
                                    placeholder="Description"></trix-editor>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle description-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
-                    </div>
-
+                        </div>
                          <div class="input-field align-left">
                             <input id="challengePhaseCodename" name="challengePhaseCodename" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.codename" required>
                                 <span class="form-icon form-icon-dark">
@@ -394,8 +351,8 @@
                                 </i>
                             </span>
                     </div>
-<!--                         <div class="input-field align-left">
-                            <input type="checkbox" id="challengePhaseLeaderboardPublic" name="challengePhaseLeaderboardPublic" ng-model="challenge_phase.leaderboard_public" required>
+                        <div class="input-field align-left">
+                            <input type="checkbox" id="challengePhaseLeaderboardPublic" name="challengePhaseLeaderboardPublic" ng-model="challenge_phase.leaderboard_public">
                                 <label for="challengePhaseLeaderboardPublic">Leaderboard Public</label>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
@@ -406,7 +363,7 @@
                                 </span>
                         </div>
                         <div class="input-field align-left">
-                            <input type="checkbox" id="challengePhasePublic" name="challengePhasePublic" ng-model="challenge_phase.is_public" required>
+                            <input type="checkbox" id="challengePhasePublic" name="challengePhasePublic" ng-model="challenge_phase.is_public">
                                 <label for="challengePhasePublic">Publically Available</label>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
@@ -416,18 +373,6 @@
                                     </i>
                                 </span>
                         </div>
-
-                        <div class="input-field align-left">
-                            <input type="checkbox" id="challengePhaseSubmissionPublic" name="challengePhaseSubmissionPublic" ng-model="challenge_phase.is_submission_public" required>
-                                <label for="challengePhaseSubmissionPublic" class="checkbox-field">Submissions Publically Available</label>
-                                <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
-                                        <md-tooltip md-direction="right">
-                                            It is a long established fact that a
-                                        </md-tooltip>
-                                    </i>
-                                </span>
-                        </div> -->
 
                         <div class="file-field input-field">
                             <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">

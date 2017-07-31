@@ -440,7 +440,6 @@ def create_challenge(request, challenge_host_team_pk):
 @permission_classes((permissions.IsAuthenticated, HasVerifiedEmail))
 @authentication_classes((ExpiringTokenAuthentication,))
 def create_leaderboard(request):
-    print request.data
     serializer = LeaderboardSerializer(data=request.data, many=True, allow_empty=False)
     if serializer.is_valid():
         serializer.save()

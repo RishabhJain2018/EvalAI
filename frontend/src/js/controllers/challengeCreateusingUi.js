@@ -19,7 +19,7 @@
         vm.challengeEvalScript = null;
         vm.challengeTitle = null;
         vm.formError = {};
-        vm.step1 = true;
+        vm.step1 = false;
         vm.step2 = false;
         vm.step3 = false;
         vm.step4 = false;
@@ -34,7 +34,6 @@
         vm.stopLoader = loaderService.stopLoader;
 
         vm.formatDate = function(dateTimeObject) {
-            console.log(dateTimeObject);          
             var dateTime = dateTimeObject.toISOString();
             var splitDateTime = dateTime.split("T");
             var date = splitDateTime[0];
@@ -215,6 +214,8 @@
              "start_date": null,
              "end_date": null,
              "test_annotation": null,
+             "is_public": null,
+             "leaderboard_public": null
             }
         ];
 
@@ -228,8 +229,12 @@
              "start_date": null,
              "end_date": null,
              "test_annotation": null,
+             "is_public": null,
+             "leaderboard_public": null
             });
         };
+
+        console.log("CHALLENGE PHASES", vm.challenge_phases);
 
         vm.removeNewChallengePhase = function(index) {
             vm.challenge_phases.splice(index, 1);
@@ -252,9 +257,8 @@
                     formdata.append("max_submissions", vm.challenge_phases[i].max_submissions);
                     formdata.append("start_date", vm.challenge_phases[i].start_date);
                     formdata.append("end_date", vm.challenge_phases[i].end_date);
-                    // formdata.append("leaderboard_public", vm.challenge_phases[i].leaderboard_public);
-                    // formdata.append("is_public", vm.challenge_phases[i].is_public);
-                    // formdata.append("is_submission_public", vm.challenge_phases[i].is_submission_public);
+                    formdata.append("leaderboard_public", vm.challenge_phases[i].leaderboard_public || false);
+                    formdata.append("is_public", vm.challenge_phases[i].is_public || false);
                     formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
                     formdata.append("challenge", vm.challengeId);
                     parameters.method = 'POST';
