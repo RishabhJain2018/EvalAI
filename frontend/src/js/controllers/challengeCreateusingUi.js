@@ -20,11 +20,11 @@
         vm.challengeTitle = null;
         vm.formError = {};
         vm.step1 = false;
-        vm.step2 = true;
+        vm.step2 = false;
         vm.step3 = false;
         vm.step4 = false;
-        vm.step5 = false;
-        vm.reviewScreen = false;
+        vm.step5 = true;
+        vm.reviewScreen = true;
         vm.challengeEnableForum = false;
         vm.challengePublicallyAvailable = false;
 
@@ -86,10 +86,10 @@
                             }
                         };
                         utilities.sendRequest(parameters, 'header', 'upload');
-                    }else {
+                    } else {
                         console.log("3");
                     }
-                }else {
+                } else {
                     vm.isFormError = true;
                     var evalScriptFileVal = angular.element(".eval-script").val();
                     if (evalScriptFileVal === null || evalScriptFileVal === "") {
@@ -98,7 +98,7 @@
                         vm.formError = "Please fill above details!";
                     }
                 }
-            }else {
+            } else {
                 angular.element(".file-path").val(null);
                 $rootScope.notify("info", "Please select a challenge host team!");
             }
@@ -136,6 +136,7 @@
                             vm.step3 = true;
                             vm.step2 = false;
                             vm.step1 = false;
+                            vm.isFormError = false;
                             $rootScope.notify("success", "Step2 is completed");
                             utilities.storeData('leaderboard', data);
                         }
@@ -145,16 +146,16 @@
                         var status = response.status;
                         if (status === 400){
                             vm.isFormError = true;
-                            vm.formdata = error;
+                            vm.formError = error;
                         }
                     }
                 };
                 utilities.sendRequest(parameters);
-            }else {
-                console.log("abc");   
             }
         };
 
+
+// function to create a Challenge Phase
         vm.challenge_phases = [
             {
              "name": null,
@@ -185,8 +186,6 @@
             });
         };
 
-        console.log("CHALLENGE PHASES", vm.challenge_phases);
-
         vm.removeNewChallengePhase = function(index) {
             vm.challenge_phases.splice(index, 1);
         };
@@ -213,12 +212,6 @@
                     formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
                     formdata.append("challenge", vm.challengeId);
 
-                    console.log("1",vm.challenge_phases[i].is_public);
-                    console.log("2",vm.challenge_phases[i].is_submission_public);
-                    console.log("3",vm.challenge_phases[i].leaderboard_public);
-                    console.log(vm.challenge_phases[i].start_date);
-
-
                     parameters.method = 'POST';
                     parameters.url = 'challenges/challenge/challenge_phase/'+ vm.challengeId +'/step_3/';
                     parameters.data = formdata;
@@ -233,6 +226,7 @@
                                 vm.step2 = false;
                                 vm.step1 = false;
                                 vm.step3 = false;
+                                vm.isFormError = false;
                                 utilities.storeData('challengePhase', challengePhaseList);
                                 $rootScope.notify("success", "Step3 is completed");
                             }
@@ -240,27 +234,29 @@
                         onError: function(response) {
                             var error = response.data;
                             vm.isFormError = true;
-                            vm.formdata = error;
+                            vm.formError = error;
                         }
                     };
                     utilities.sendRequest(parameters, 'header', 'upload');
                     }
-            }else {
-                console.log("Challenge Phase");   
             }
         };
 
+
+//function to create Dataset Splits
         vm.datasetSplits = [
-            {"name": null,
-             "codename": null}
+            {
+            "name": null,
+            "codename": null
+            }
         ];
 
         vm.addNewDatasetSplit = function() {
-            vm.leaderboards.push({"name": null, "codename": null});
+            vm.datasetSplits.push({"name": null, "codename": null});
         };
 
         vm.removeNewDatasetSplit = function(index) {
-            vm.leaderboards.splice(index, 1);
+            vm.datasetSplits.splice(index, 1);
         };
 
         vm. datasetSplitCreate = function(datasetSplitCreateFormValid) {
@@ -280,6 +276,7 @@
                             vm.step3 = false;
                             vm.step2 = false;
                             vm.step1 = false;
+                            vm.isFormError = false;
                             $rootScope.notify("success", "Step 4 is completed!");
                             utilities.storeData('datasetSplit', data);
                         }
@@ -298,6 +295,9 @@
                 console.log("datasetSplit");
             }
         };
+
+
+//function to create Challenge Phase splits
 
         vm.challengePhaseSplits = [
             {"challenge_phase": null,
@@ -318,22 +318,22 @@
             vm.challengePhaseSplits.splice(index, 1);
         };
 
+        vm.challengePhase = utilities.getData('challengePhase');
+        vm.leaderboard = utilities.getData('leaderboard');
+        vm.datasetSplit = utilities.getData('datasetSplit');
+        vm.visibility = [
+            {'id': 1, 'name' : 'Host'},
+            {'id': 2, 'name' : 'Owner And Host'},
+            {'id': 3, 'name' : 'Public'}
+        ];
+
         vm. challengePhaseSplitCreate = function(challengePhaseSplitCreateFormValid) {
+            console.log("SPLITS", vm.challengePhaseSplits);
             if (challengePhaseSplitCreateFormValid) {
+                console.log("1");
                 var parameters = {};
                 parameters.method = 'POST';
                 parameters.url = 'challenges/challenge/challenge_phase_split/step_5/';
-
-                var challengePhase = utilities.getData('challengePhase');
-                var leaderboard = utilities.getData('leaderboard');
-                var datasetSplit = utilities.getData('datasetSplit');
-
-                for (var i=0; i<vm.challengePhaseSplits.length; i++) {
-
-                    vm.challengePhaseSplits[i].challenge_phase = challengePhase[vm.challengePhaseSplits[i].challenge_phase -1].id;
-                    vm.challengePhaseSplits[i].dataset_split = datasetSplit[vm.challengePhaseSplits[i].dataset_split -1].id;
-                    vm.challengePhaseSplits[i].leaderboard = leaderboard[vm.challengePhaseSplits[i].leaderboard - 1].id;
-                }
 
                 parameters.data = vm.challengePhaseSplits;
                 parameters.token = userKey;
@@ -341,11 +341,13 @@
                     onSuccess: function(response) {
                         var status = response.status;
                         if (status === 201) {
+                            vm.reviewScreen = true;
                             vm.step5 = false;
                             vm.step4 = false;
                             vm.step3 = false;
                             vm.step2 = false;
                             vm.step1 = false;
+                            vm.isFormError = false;
                             $rootScope.notify("success", "Step 5 is completed!");
                             // utilities.deleteData('challenge');
                             // utilities.deleteData('challengePhase');
@@ -360,6 +362,7 @@
                         if (status === 400) {
                             vm.isFormError = true;
                             vm.formdata = error;
+                            console.log(error);
                         }
                     }
                 };
