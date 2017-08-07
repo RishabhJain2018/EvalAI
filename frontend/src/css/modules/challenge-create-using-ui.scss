@@ -10,3 +10,23 @@
 .editor {
 	height: 150px;
 }
+
+.tooltip {
+	word-wrap: keep-all;
+	max-width: 100px;
+}
+
+.reviewScreen {
+	position: fixed;
+	background-color: white;
+	z-index: 5000;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow-y: scroll;
+}
+
+.md-tooltip {
+	width: auto;
+}

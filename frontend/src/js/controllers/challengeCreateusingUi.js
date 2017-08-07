@@ -1,4 +1,4 @@
-// Invoking IIFE for create challenge using ui page
+// Invoking IIFE for create challenge using ui
 (function() {
 
     'use strict';
@@ -20,10 +20,11 @@
         vm.challengeTitle = null;
         vm.formError = {};
         vm.step1 = false;
-        vm.step2 = false;
+        vm.step2 = true;
         vm.step3 = false;
         vm.step4 = false;
         vm.step5 = false;
+        vm.reviewScreen = false;
         vm.challengeEnableForum = false;
         vm.challengePublicallyAvailable = false;
 
@@ -33,7 +34,7 @@
         // stop loader
         vm.stopLoader = loaderService.stopLoader;
 
-        vm.formatDate = function(dateTimeObject) {
+        vm.formatDate = function(dateTimeObject) {          
             var dateTime = dateTimeObject.toISOString();
             var splitDateTime = dateTime.split("T");
             var date = splitDateTime[0];
@@ -41,18 +42,10 @@
             return date + " " + time;
         };
 
-        // function to create a challenge using ui form.
-
+// function to create a Challenge.
         vm.challengeCreate = function(challengeCreateFormValid) {
             if (vm.hostTeamId) {
                 if (challengeCreateFormValid) {
-                    var evalScriptFileVal = angular.element(".eval-script").val();
-
-                    if (evalScriptFileVal === null || evalScriptFileVal === "") {
-                        vm.isFormError = true;
-                        vm.formError = "Please upload Evaluation script file!";
-                    }
-
                     if (vm.challengeEvalScript && vm.challengeTitle) {
                         var parameters = {};
                         parameters.method = 'POST';
@@ -78,90 +71,50 @@
                             onSuccess: function(response) {
                                 var status = response.status;
                                 var data = response.data;
-                                console.log("Challenge", data);
                                 if (status === 201)
                                 {   
                                     vm.step2 = true;
                                     vm.step1 = false;
+                                    vm.isFormError = false;
                                     $rootScope.notify("success", "step1 is completed");
                                     utilities.storeData('challenge', data);
                                 }
                             },
                             onError: function(response) {
                                 var error = response.data;
-                                vm.isFormError = true;
-                                angular.forEach(error, function(value, key) {
-                                    if (key == 'title') {
-                                        vm.isValid.title = true;
-                                        vm.wrnMsg.title = value[0];
-                                    }
-                                    if (key == 'short_description') {
-                                        vm.isValid.short_description = true;
-                                        vm.wrnMsg.short_description = value[0];
-                                    }
-                                    if (key == 'description') {
-                                        vm.isValid.description = true;
-                                        vm.wrnMsg.description = value[0];
-                                    }
-                                    if (key == 'terms_and_conditions') {
-                                        vm.isValid.terms_and_conditions = true;
-                                        vm.wrnMsg.terms_and_conditions = value[0];
-                                    }
-                                    if (key == 'submission_guidelines') {
-                                        vm.isValid.submission_guidelines = true;
-                                        vm.wrnMsg.submission_guidelines = value[0];
-                                    }
-                                    if (key == 'evaluation_details') {
-                                        vm.isValid.evaluation_details = true;
-                                        vm.wrnMsg.evaluation_details = value[0];
-                                    }
-                                    if (key == 'publically_available') {
-                                        vm.isValid.publically_available = true;
-                                        vm.wrnMsg.publically_available = value[0];
-                                    }
-                                    if (key == 'enable_forum') {
-                                        vm.isValid.enable_forum = true;
-                                        vm.wrnMsg.enable_forum = value[0];
-                                    }
-                                    if (key == 'anonymous_leaderboard') {
-                                        vm.isValid.anonymous_leaderboard = true;
-                                        vm.wrnMsg.anonymous_leaderboard = value[0];
-                                    }
-                                    if (key == 'start_date') {
-                                        vm.isValid.start_date = true;
-                                        vm.wrnMsg.start_date = value[0];
-                                    }
-                                    if (key == 'end_date') {
-                                        vm.isValid.end_date = true;
-                                        vm.wrnMsg.end_date = value[0];
-                                    }
-                                    if (key == 'image') {
-                                        vm.isValid.image = true;
-                                        vm.wrnMsg.image = value[0];
-                                    }
-                                    if (key == 'evaluation_script') {
-                                        vm.isValid.evaluation_script = true;
-                                        vm.wrnMsg.evaluation_script = value[0];
-                                    }
-                                });
+                                console.log(error);
                             }
                         };
+                        utilities.sendRequest(parameters, 'header', 'upload');
+                    }else {
+                        console.log("3");
                     }
-                utilities.sendRequest(parameters, 'header', 'upload');
+                }else {
+                    vm.isFormError = true;
+                    var evalScriptFileVal = angular.element(".eval-script").val();
+                    if (evalScriptFileVal === null || evalScriptFileVal === "") {
+                        vm.formError = "Please upload Evaluation script file!";
+                    }else {
+                        vm.formError = "Please fill above details!";
+                    }
                 }
-                }
-                else {
-                    angular.element(".file-path").val(null);
-                    $rootScope.notify("info", "Please select a challenge host team!");
-                }
-            };
+            }else {
+                angular.element(".file-path").val(null);
+                $rootScope.notify("info", "Please select a challenge host team!");
+            }
+        };
 
+
+//function to create a LeaderBoard
         vm.leaderboards = [
-            {"schema": null}
+            {
+            "leaderboardId": null,
+            "schema": null
+            }
         ];
 
         vm.addNewLeaderboard = function() {
-            vm.leaderboards.push({"schema": null});
+            vm.leaderboards.push({"leaderboardId": null, "schema": null});
         };
 
         vm.removeNewLeaderboard = function(index) {
@@ -174,13 +127,11 @@
                 parameters.method = 'POST';
                 parameters.url = 'challenges/challenge/leaderboard/step_2/';
                 parameters.data = vm.leaderboards;
-                console.log(vm.leaderboards);
                 parameters.token = userKey;
                 parameters.callback = {
                     onSuccess: function(response) {
                         var status = response.status;
                         var data = response.data;
-                        console.log("leaderboards", data);
                         if (status === 201) {
                             vm.step3 = true;
                             vm.step2 = false;
@@ -261,6 +212,13 @@
                     formdata.append("is_public", vm.challenge_phases[i].is_public || false);
                     formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
                     formdata.append("challenge", vm.challengeId);
+
+                    console.log("1",vm.challenge_phases[i].is_public);
+                    console.log("2",vm.challenge_phases[i].is_submission_public);
+                    console.log("3",vm.challenge_phases[i].leaderboard_public);
+                    console.log(vm.challenge_phases[i].start_date);
+
+
                     parameters.method = 'POST';
                     parameters.url = 'challenges/challenge/challenge_phase/'+ vm.challengeId +'/step_3/';
                     parameters.data = formdata;
@@ -275,7 +233,6 @@
                                 vm.step2 = false;
                                 vm.step1 = false;
                                 vm.step3 = false;
-                                console.log("Challenge phase", challengePhaseList);
                                 utilities.storeData('challengePhase', challengePhaseList);
                                 $rootScope.notify("success", "Step3 is completed");
                             }
@@ -317,7 +274,6 @@
                     onSuccess: function(response) {
                         var status = response.status;
                         var data = response.data;
-                        console.log("Dataset Split", data);
                         if (status === 201) {
                             vm.step5 = true;
                             vm.step4 = false;
@@ -379,13 +335,11 @@
                     vm.challengePhaseSplits[i].leaderboard = leaderboard[vm.challengePhaseSplits[i].leaderboard - 1].id;
                 }
 
-                console.log("updated challenge phase splits",vm.challengePhaseSplits);
                 parameters.data = vm.challengePhaseSplits;
                 parameters.token = userKey;
                 parameters.callback = {
                     onSuccess: function(response) {
                         var status = response.status;
-                        console.log("Challenge Phase Split", response.data);
                         if (status === 201) {
                             vm.step5 = false;
                             vm.step4 = false;
@@ -414,5 +368,7 @@
                 console.log("ChallengePhaseSplit");
             }
         };
+
+    vm.challenge = utilities.getData('challenge');
     }
 })();
