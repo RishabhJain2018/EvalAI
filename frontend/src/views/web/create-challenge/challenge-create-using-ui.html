@@ -9,7 +9,7 @@
                     <div class="input-field align-left">
                         <input id="challengeTitle" name="challengeTitle" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeTitle" required>
                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
+                                <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
                                       Title of the Challenge
                                     </md-tooltip>
@@ -105,7 +105,7 @@
                     <div class="input-field align-left">
                             <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challengeStartDate" class="md-input" readonly="readonly" placeholder="Start Date">
                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
+                                <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
                                         Start Date of the Challenge
                                     </md-tooltip>
@@ -116,7 +116,7 @@
                         <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeEndDate"
                          show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challengeEndDate" class="md-input" readonly="readonly" placeholder="End Date">
                         <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle">
+                            <i class="fa fa-info-circle cursor-pointer">
                                 <md-tooltip md-direction="right">
                                     End Date of the Challenge
                                 </md-tooltip>
@@ -127,7 +127,7 @@
                         <input type="checkbox" id="challengeEnableForum" name="challengeEnableForum" ng-model="challengeCreateUsingUi.challengeEnableForum" value="challengeCreateUsingUi.challengeEnableForum">
                         <label for="challengeEnableForum">Enable Forum</label>
                         <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle">
+                            <i class="fa fa-info-circle cursor-pointer">
                                 <md-tooltip md-direction="right">
                                     Enable challenge discussion forum
                                 </md-tooltip>
@@ -138,7 +138,7 @@
                         <input type="checkbox" id="challengePublicallyAvailable" name="challengePublicallyAvailable" ng-model="challengeCreateUsingUi.challengePublicallyAvailable" value="challengeCreateUsingUi.challengePublicallyAvailable">
                         <label for="challengePublicallyAvailable" class="checkbox-field">Publically Available</label>
                         <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle">
+                            <i class="fa fa-info-circle cursor-pointer">
                                 <md-tooltip md-direction="right">
                                     Make the challenge available to the public
                                 </md-tooltip>
@@ -153,7 +153,7 @@
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
                              <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
+                                <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
                                         Challenge logo
                                     </md-tooltip>
@@ -169,7 +169,7 @@
                         <div class="file-path-wrapper">
                             <input class="file-path validate eval-script" type="text">
                              <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
+                                <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
                                         Evaluation script for the challenge
                                     </md-tooltip>
@@ -202,7 +202,7 @@
                     <div class="input-field align-left">
                          <input id="{{'leaderboardId_'+ $index}}" name="{{'leaderboardId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Unique integer field for each leaderboard entry.
                                         </md-tooltip>
@@ -216,7 +216,7 @@
                         <div class="input-field align-left">
                             <input id="{{'leaderboardSchema_'+$index}}" name="{{'leaderboardSchema_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.schema" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                            Schema for the leaderboard.
                                         </md-tooltip>
@@ -266,7 +266,7 @@
                         <div class="input-field align-left">
                             <input id="{{'challengePhaseName_'+$index}}" name="{{'challengePhaseName_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.name" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Name of the Challenge Phase
                                         </md-tooltip>
@@ -298,7 +298,7 @@
                          <div class="input-field align-left">
                             <input id="{{'challengePhaseCodename_'+$index}}" name="{{'challengePhaseCodename_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.codename" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Unique codename for the challenge phase
                                         </md-tooltip>
@@ -309,7 +309,7 @@
                        <div class="input-field align-left">
                             <input id="{{'challengeMaxSubmissionsPerDay_'+$index}}" name="{{'challengeMaxSubmissionsPerDay_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions_per_day" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Maximum submissions for a day
                                         </md-tooltip>
@@ -321,7 +321,7 @@
                         <div class="input-field align-left">
                             <input id="{{'challengeMaxSubmissions_'+$index}}" name="{{'challengeMaxSubmissions_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Max submissions for a challenge phase
                                         </md-tooltip>
@@ -333,7 +333,7 @@
                     <div class="input-field align-left">
                             <input mdc-datetime-picker="" date="true" time="true" type="text" id="{{'challengePhaseStartDate_'+$index}}" show-todays-date="" ng-model="challenge_phase.start_date" class="md-input" readonly="readonly" placeholder="Start Date">
                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
+                                <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
                                         Start date for challenge phase
                                     </md-tooltip>
@@ -344,7 +344,7 @@
                     <div class="input-field align-left">
                             <input mdc-datetime-picker="" date="true" time="true" type="text" id="{{'challengePhaseEndDate_'+$index}}" show-todays-date="" ng-model="challenge_phase.end_date" class="md-input" readonly="readonly" placeholder="End Date">
                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
+                                <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
                                         End date for a challenge phase
                                     </md-tooltip>
@@ -355,7 +355,7 @@
                             <input type="checkbox" id="{{'challengePhaseLeaderboardPublic_'+$index}}" name="{{'challengePhaseLeaderboardPublic_'+$index}}" ng-model="challenge_phase.leaderboard_public">
                                 <label for="{{'challengePhaseLeaderboardPublic_'+$index}}">Leaderboard Public</label>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Make Leader Board publically available
                                         </md-tooltip>
@@ -366,7 +366,7 @@
                             <input type="checkbox" id="{{'challengePhasePublic_'+$index}}" name="{{'challengePhasePublic_'+$index}}" ng-model="challenge_phase.is_public">
                                 <label for="{{'challengePhasePublic_'+$index}}">Publically Available</label>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Make challenge phase publically available
                                         </md-tooltip>
@@ -382,7 +382,7 @@
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
                                  <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                           Test Annotation file for challenge phase
                                         </md-tooltip>
@@ -432,7 +432,7 @@
                     <div class="input-field align-left">
                          <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.datasetSplitId" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Unique integer field for each dataset split entry.
                                         </md-tooltip>
@@ -446,7 +446,7 @@
                         <div class="input-field align-left">
                             <input id="{{'datasetSplitName_'+$index}}" name="{{'datasetSplitName_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.name" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                             Name for dataset split
                                         </md-tooltip>
@@ -460,7 +460,7 @@
                         <div class="input-field align-left">
                             <input id="{{'datasetSplitCodename_'+$index}}" name="{{'datasetSplitCodename_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.codename" required>
                                 <span class="form-icon form-icon-dark">
-                                    <i class="fa fa-info-circle">
+                                    <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
                                           Unique codename for dataset split
                                         </md-tooltip>

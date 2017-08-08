@@ -19,12 +19,12 @@
         vm.challengeEvalScript = null;
         vm.challengeTitle = null;
         vm.formError = {};
-        vm.step1 = false;
+        vm.step1 = true;
         vm.step2 = false;
         vm.step3 = false;
         vm.step4 = false;
         vm.step5 = false;
-        vm.reviewScreen = true;
+        vm.reviewScreen = false;
         vm.challengeEnableForum = false;
         vm.challengePublicallyAvailable = false;
 
@@ -68,8 +68,6 @@
 
                         utilities.storeData('challengeImage', vm.challengeImage.name);
                         utilities.storeData('evalScript', vm.challengeEvalScript.name);
-                        console.log(vm.challengeImage.name);
-                        console.log(vm.challengeEvalScript.name);
 
                         parameters.data = formdata;
                         parameters.token = userKey;
@@ -416,6 +414,7 @@
             }
         }
     }
+
 
 
 
