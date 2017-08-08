@@ -19,10 +19,10 @@
         vm.challengeEvalScript = null;
         vm.challengeTitle = null;
         vm.formError = {};
-        vm.step1 = true;
+        vm.step1 = false;
         vm.step2 = false;
         vm.step3 = false;
-        vm.step4 = false;
+        vm.step4 = true;
         vm.step5 = false;
         vm.reviewScreen = false;
         vm.challengeEnableForum = false;
@@ -283,6 +283,9 @@
                             vm.isFormError = false;
                             $rootScope.notify("success", "Step 4 is completed!");
                             utilities.storeData('datasetSplit', data);
+                            vm.challengePhase = utilities.getData('challengePhase');
+                            vm.leaderboard = utilities.getData('leaderboard');
+                            vm.datasetSplit = utilities.getData('datasetSplit');
                         }
                     },
                     onError: function(response){
@@ -290,7 +293,7 @@
                         var status = response.status;
                         if (status === 400) {
                             vm.isFormError = true;
-                            vm.formdata = error;
+                            vm.formError = error[0].codename;
                         }
                     }
                 };
@@ -299,7 +302,6 @@
                 console.log("datasetSplit");
             }
         };
-
 
 //function to create Challenge Phase splits
 
@@ -322,17 +324,17 @@
             vm.challengePhaseSplits.splice(index, 1);
         };
 
-        vm.challengePhase = utilities.getData('challengePhase');
-        vm.leaderboard = utilities.getData('leaderboard');
-        vm.datasetSplit = utilities.getData('datasetSplit');
         vm.visibility = [
             {'id': 1, 'name' : 'Host'},
             {'id': 2, 'name' : 'Owner And Host'},
             {'id': 3, 'name' : 'Public'}
         ];
 
+        vm.challenge = utilities.getData('challenge');
+        vm.challengeImageName = utilities.getData('challengeImage');
+        vm.evalScriptName = utilities.getData('evalScript');
+
         vm. challengePhaseSplitCreate = function(challengePhaseSplitCreateFormValid) {
-            console.log("SPLITS", vm.challengePhaseSplits);
             if (challengePhaseSplitCreateFormValid) {
                 console.log("1");
                 var parameters = {};
@@ -359,7 +361,6 @@
                             // utilities.deleteData('challengePhase');
                             // utilities.deleteData('leaderboard');
                             // utilities.deleteData('datasetSplit');
-
                         }
                     },
                     onError: function(response){
@@ -378,20 +379,19 @@
             }
         };
 
+        vm.challengePhaseSplitsData = utilities.getData('challengePhaseSplits');
+        vm.challengePhase = utilities.getData('challengePhase');
+        vm.leaderboard = utilities.getData('leaderboard');
+        vm.datasetSplit = utilities.getData('datasetSplit');
+        vm.data = [];
+        for (var i=0; i<vm.challengePhaseSplitsData.length; i++) {
+            vm.data.push({
+            "challenge_phase": null,
+            "dataset_split": null,
+            "leaderboard": null,
+            "visibility": null
+            });
 
-    vm.data = [];
-    vm.challenge = utilities.getData('challenge');
-    vm.challengeImageName = utilities.getData('challengeImage');
-    vm.evalScriptName = utilities.getData('evalScript');
-    vm.challengePhaseSplitsData = utilities.getData('challengePhaseSplits');
-
-    for (var i=0; i<vm.challengePhaseSplitsData.length; i++) {
-        vm.data.push({
-        "challenge_phase": null,
-        "dataset_split": null,
-        "leaderboard": null,
-        "visibility": null
-        });
         for (var j=0; j<vm.challengePhase.length; j++) {
             if(vm.challengePhaseSplitsData[i].challenge_phase == vm.challengePhase[j].id) {
                 vm.data[i].challenge_phase = vm.challengePhase[j].name;
@@ -417,7 +417,6 @@
 
 
 
-
-
     }
 })();
+

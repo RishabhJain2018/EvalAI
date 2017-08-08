@@ -714,7 +714,7 @@
                 <div class="pass-title">Review Dataset Split </div>
                   <div ng-repeat="datasetSplit in challengeCreateUsingUi.datasetSplit">
 
-                    <div class="input-field align-left">
+                        <div class="input-field align-left">
                          <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{$index+1}}" focus-if="datasetSplit.id" readonly>
                           <label for="{{'datasetSplitId_'+$index}}">Dataset Split Id</label>
                         </div>
@@ -732,40 +732,28 @@
 
                 <div class="pass-title">Review Challenge Phase Split </div>
                   <div ng-repeat="challengePhaseSplit in challengeCreateUsingUi.data">
-                  <div class="row">
-                    <div class="rm-padding">
-                      <md-select name="{{'challengePhase_'+$index}}" ng-model="challengePhaseSplit.challenge_phase" class="rm-margin" readonly>
-                        <md-option value="{{challengePhaseSplit.challenge_phase}}">{{challengePhaseSplit.challenge_phase}}
-                        </md-option>
-                      </md-select>
-                    </div>
+                  <div class="input-field align-left">
+                      <input name="{{'challengePhase_'+$index}}" id="{{'challengePhase_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" focus-if="challengePhaseSplit.challenge_phase" value="{{challengePhaseSplit.challenge_phase}}" readonly>
+                        <label for="{{'challengePhase_'+$index}}">Challenge Phase
+                        </label>
                   </div>
 
-                  <div class="row">
-                    <div class="rm-padding">
-                      <md-select name="{{'datasetSplit_'+$index}}" ng-model="challengePhaseSplit.dataset_split" class="rm-margin" readonly>
-                        <md-option value="{{challengePhaseSplit.dataset_split}}">{{challengePhaseSplit.dataset_split}}
-                        </md-option>
-                      </md-select>
-                    </div>
+                  <div class="input-field align-left">
+                      <input type="text" id="{{'datasetSplit_'+$index}}" name="{{'datasetSplit_'+$index}}" value="{{challengePhaseSplit.dataset_split}}" class="text-dark-black w-400" focus-if="challengePhaseSplit.dataset_split" readonly>
+                        <label for="{{'datasetSplit_'+$index}}"> Dataset Split
+                        </label>
                   </div>
 
-                  <div class="row">
-                    <div class="rm-padding">
-                      <md-select name="{{'leaderboard_'+$index}}" ng-model="challengePhaseSplit.leaderboard" class="rm-margin" readonly>
-                        <md-option value="{{challengePhaseSplit.leaderboard}}">{{challengePhaseSplit.leaderboard}}
-                        </md-option>
-                      </md-select>
-                    </div>
+                  <div class="input-field align-left">
+                      <input type="text" id="{{'leaderboard_'+$index}}" value="{{challengePhaseSplit.leaderboard}}" name="{{'leaderboard_'+$index}}" focus-if="challengePhaseSplit.leaderboard" readonly>
+                        <label value="{{'leaderboard_'+$index}}">Leaderboard
+                        </label>
                   </div>
 
-                  <div class="row add-margin-bottom">
-                    <div class="rm-padding">
-                      <md-select name="{{'visibility_'+$index}}" ng-model="challengePhaseSplit.visibility" class="rm-margin" readonly>
-                        <md-option value="{{challengePhaseSplit.visibility}}">{{challengePhaseSplit.visibility}}
-                        </md-option>
-                      </md-select>
-                    </div>
+                  <div class="input-field align-left  add-margin-bottom">
+                      <input id="{{'visibility_'+$index}}" type="text" name="{{'visibility_'+$index}}" value="{{challengePhaseSplit.visibility}}" class="rm-margin" focus-if="challengePhaseSplit.visibility" readonly>
+                        <label id="{{'visibility_'+$index}}"> Visibility
+                        </label>
                   </div>
               </div>
 
