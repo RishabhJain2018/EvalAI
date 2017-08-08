@@ -19,10 +19,10 @@
         vm.challengeEvalScript = null;
         vm.challengeTitle = null;
         vm.formError = {};
-        vm.step1 = false;
+        vm.step1 = true;
         vm.step2 = false;
         vm.step3 = false;
-        vm.step4 = true;
+        vm.step4 = false;
         vm.step5 = false;
         vm.reviewScreen = false;
         vm.challengeEnableForum = false;
