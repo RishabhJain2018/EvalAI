@@ -200,7 +200,7 @@
                     <form name="leaderboardCreateForm" ng-submit="challengeCreateUsingUi.leaderboardCreate(leaderboardCreateForm.$valid)" novalidate>
                     <div ng-repeat="leaderboard in challengeCreateUsingUi.leaderboards">
                     <div class="input-field align-left">
-                         <input id="{{'leaderboardId_'+ $index}}" name="{{'leaderboardId_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" required>
+                         <input id="{{'leaderboardId_'+ $index}}" name="{{'leaderboardId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
                                         <md-tooltip md-direction="right">
@@ -430,7 +430,7 @@
                 <form name="datasetSplitCreateForm" ng-submit="challengeCreateUsingUi.datasetSplitCreate(datasetSplitCreateForm.$valid)" novalidate>
                 <div ng-repeat="datasetSplit in challengeCreateUsingUi.datasetSplits">
                     <div class="input-field align-left">
-                         <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.datasetSplitId" required>
+                         <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.datasetSplitId" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle">
                                         <md-tooltip md-direction="right">
@@ -571,161 +571,208 @@
 <!-- Review Screen-->
 
 <section ng-if="challengeCreateUsingUi.reviewScreen">
-    <div class="reviewScreen">
-<!--         <div class="col s12 m6 offset-m3">
+    <div class="row reviewScreen">
+        <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
-                <div class="pass-title">Review Challenge</div> -->
-<!--                 <form name="challengeCreateForm" ng-submit="challengeCreateUsingUi.challengeCreate(challengeCreateForm.$valid)" novalidate> -->
-<!--                     <div class="input-field align-left">
+
+                <div class="pass-title">Review Challenge</div>
+                    <div class="input-field align-left">
                         <input id="challengeTitle" name="challengeTitle" type="text" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challenge.title" focus-if="challengeCreateUsingUi.challenge.title" readonly>
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
                         <label for="challengeTitle">Challenge Title</label>
                     </div>
 
                     <div class="input-field align-left">
                       <textarea id="shortDesc" class="materialize-textarea" name="shortDesc" ng-model="challengeCreateUsingUi.challenge.short_description" focus-if="challengeCreateUsingUi.challenge.short_description" readonly></textarea>
-                        <span class="form-icon form-icon-dark">
-                          <i class="fa fa-info-circle">
-                            <md-tooltip md-direction="right">
-                              It is a long established fact that a
-                            </md-tooltip>
-                          </i>
-                        </span>
                         <label for="shortDesc">Challenge Short Description</label>
                     </div>
+
                     <div class="input-field align-left">
                       <textarea id="Desc" class="materialize-textarea" name="Desc" ng-model="challengeCreateUsingUi.challenge.description" focus-if="challengeCreateUsingUi.challenge.description" readonly></textarea>
-                        <span class="form-icon form-icon-dark">
-                          <i class="fa fa-info-circle">
-                            <md-tooltip md-direction="right">
-                              It is a long established fact that a
-                            </md-tooltip>
-                          </i>
-                        </span>
                         <label for="shortDesc">Challenge Description</label>
                     </div>
+
                     <div class="input-field align-left">
                       <textarea id="Desc" class="materialize-textarea" name="Desc" ng-model="challengeCreateUsingUi.challenge.evaluation_details" focus-if="challengeCreateUsingUi.challenge.evaluation_details" readonly></textarea>
-                        <span class="form-icon form-icon-dark">
-                          <i class="fa fa-info-circle">
-                            <md-tooltip md-direction="right">
-                              It is a long established fact that a
-                            </md-tooltip>
-                          </i>
-                        </span>
                         <label for="shortDesc">Evaluation Details</label>
                     </div>
+
                     <div class="input-field align-left">
                       <textarea id="Desc" class="materialize-textarea" name="Desc" ng-model="challengeCreateUsingUi.challenge.terms_and_conditions" focus-if="challengeCreateUsingUi.challenge.terms_and_conditions" readonly></textarea>
-                        <span class="form-icon form-icon-dark">
-                          <i class="fa fa-info-circle">
-                            <md-tooltip md-direction="right">
-                              It is a long established fact that a
-                            </md-tooltip>
-                          </i>
-                        </span>
                         <label for="shortDesc">Terms And Conditions</label>
                     </div>
+
                     <div class="input-field align-left">
                       <textarea id="Desc" class="materialize-textarea" name="Desc" ng-model="challengeCreateUsingUi.challenge.submission_guidelines" focus-if="challengeCreateUsingUi.challenge.submission_guidelines" readonly></textarea>
-                        <span class="form-icon form-icon-dark">
-                          <i class="fa fa-info-circle">
-                            <md-tooltip md-direction="right">
-                              It is a long established fact that a
-                            </md-tooltip>
-                          </i>
-                        </span>
                         <label for="shortDesc">Submission Guidelines</label>
                     </div>
+
                     <div class="input-field align-left">
-                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challenge.start_date" class="md-input" readonly="readonly">
-                            <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
+                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challenge.start_date" class="md-input" readonly="readonly">
                     </div>
+
                     <div class="input-field align-left">
                         <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeEndDate"
                          show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challenge.end_date" class="md-input" readonly="readonly">
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
+
                     <div class="input-field align-left">
                         <input type="checkbox" id="challengeEnableForum" name="challengeEnableForum" ng-model="challengeCreateUsingUi.challenge.enable_forum" value="challengeCreateUsingUi.challenge.enable_forum">
                         <label for="challengeEnableForum">Enable Forum</label>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
+
                     <div class="input-field align-left">
                         <input type="checkbox" id="challengePublicallyAvailable" name="challengePublicallyAvailable" ng-model="challengeCreateUsingUi.challenge.published" value="challengeCreateUsingUi.challenge.published">
                         <label for="challengePublicallyAvailable" class="checkbox-field">Publically Available</label>
-                        <span class="form-icon form-icon-dark">
-                            <i class="fa fa-info-circle">
-                                <md-tooltip md-direction="right">
-                                    It is a long established fact that a
-                                </md-tooltip>
-                            </i>
-                        </span>
                     </div>
+
                     <div class="file-field input-field">
                         <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
                             <span>Challenge Image</span>
-                            <input name="challengeImage" ngf-select type="file" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeImage" required>
+                            <input name="challengeImageName" type="file" class="text-dark-black dark-autofill w-400" readonly>
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
-                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
+                            <input class="file-path validate" type="text" value="{{challengeCreateUsingUi.challengeImageName}}" readonly>
                         </div>
                     </div>
-                    <div class="file-field input-field">
+
+                    <div class="file-field input-field add-margin-bottom">
                         <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
                             <span>Evaluation Script</span>
-                            <input name="challengeEvalScript" ngf-select type="file" class="text-dark-black dark-autofill w-400" ng-model="challengeCreateUsingUi.challengeEvalScript" required>
+                            <input name="evalScriptName" type="file" class="text-dark-black dark-autofill w-400" readonly>
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate eval-script" type="text">
-                             <span class="form-icon form-icon-dark">
-                                <i class="fa fa-info-circle">
-                                    <md-tooltip md-direction="right">
-                                        It is a long established fact that a
-                                    </md-tooltip>
-                                </i>
-                            </span>
+                            <input class="file-path validate eval-script" type="text" value="{{challengeCreateUsingUi.evalScriptName}}" readonly>
                         </div>
                     </div>
-                    <div class="align-left reg-control">
-                        <button class="btn ev-btn-dark waves-effect waves-dark grad-btn grad-btn-dark fs-14" type="submit" value="Submit">Submit</button>
+
+                <div class="pass-title">Review Leaderboard</div>
+                  <div ng-repeat="leader_board in challengeCreateUsingUi.leaderboard">
+                  <div class="input-field align-left">
+                       <input id="{{'leaderboardId_'+ $index}}" name="{{'leaderboardId_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{$index+1}}" focus-if="{{leader_board.id}}" readonly>
+                          <label for="{{'leaderboardId_'+$index}}">Leader Board Id</label>
+                      </div>
+                      <div class="input-field align-left add-margin-bottom">
+                          <input id="{{'leaderboardSchema_'+$index}}" name="{{'leaderboardSchema_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{leader_board.schema}}" focus-if="{{leader_board.schema}}" readonly>
+                          <label for="{{'leaderboardSchema_'+$index}}"> Leader board Schema </label>
+                      </div>
+                  </div>
+
+                <div class="pass-title">Review Challenge Phase</div>
+                  <div ng-repeat = "challenge_phase in challengeCreateUsingUi.challengePhase">
+                    <div class="input-field align-left">
+                        <input id="{{'challengePhaseName_'+$index}}" name="{{'challengePhaseName_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.name}}" focus-if="challenge_phase.name" readonly>
+                        <label for="{{'challengePhaseName_'+$index}}">Challenge Phase Name</label>
                     </div>
-                    <div ng-if="challengeCreateUsingUi.isFormError" class="wrn-msg text-highlight align-right">
-                    {{challengeCreateUsingUi.formError}}
+
+                    <div class="input-field align-left">
+                      <textarea id="{{'challengePhaseDesc_'+$index}}" class="materialize-textarea" name="{{'challengePhaseDesc_'+$index}}" ng-model="challenge_phase.description" focus-if="challenge_phase.description" readonly></textarea>
+                        <label for="shortDesc">Challenge Phase Description</label>
                     </div>
-                </form>
-            </div>
-        </div> -->
+
+                    <div class="input-field align-left">
+                        <input id="{{'challengePhaseCodename_'+$index}}" name="{{'challengePhaseCodename_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.codename}}" focus-if="challenge_phase.codename" readonly>
+                        <label for="{{'challengePhaseCodename_'+$index}}">Challenge Phase Codename</label>
+                    </div>
+
+                    <div class="input-field align-left">
+                      <input id="{{'challengeMaxSubmissionsPerDay_'+$index}}" name="{{'challengeMaxSubmissionsPerDay_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.max_submissions_per_day}}" focus-if="challenge_phase.max_submissions_per_day" readonly>   
+                          <label for="{{'challengeMaxSubmissionsPerDay_'+$index}}">Max submissions per day</label>
+                        </div>
+
+                    <div class="input-field align-left">
+                        <input id="{{'challengeMaxSubmissions_'+$index}}" name="{{'challengeMaxSubmissions_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.max_submissions}}" focus-if="challenge_phase.max_submissions" readonly>
+                        <label for="{{'challengeMaxSubmissions_'+$index}}">Max submissions Total</label>
+                    </div>
+
+                    <div class="input-field align-left">
+                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="{{'challengePhaseStartDate_'+$index}}" show-todays-date="" ng-model="challenge_phase.start_date" class="md-input" readonly="readonly" focus-if="challenge_phase.start_date">
+                    </div>
+
+                    <div class="input-field align-left">
+                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="{{'challengePhaseEndDate_'+$index}}" show-todays-date="" ng-model="challenge_phase.end_date" class="md-input" focus-if="challenge_phase.end_date" readonly="readonly">
+                    </div>
+                        <div class="input-field align-left">
+                          <input type="checkbox" id="{{'challengePhaseLeaderboardPublic_'+$index}}" name="{{'challengePhaseLeaderboardPublic_'+$index}}" ng-model="challenge_phase.leaderboard_public" readonly>
+                          <label for="{{'challengePhaseLeaderboardPublic_'+$index}}">Leaderboard Public</label>
+                        </div>
+                        <div class="input-field align-left">
+                            <input type="checkbox" id="{{'challengePhasePublic_'+$index}}" name="{{'challengePhasePublic_'+$index}}" ng-model="challenge_phase.is_public" readonly>
+                                <label for="{{'challengePhasePublic_'+$index}}">Publically Available</label>
+                        </div>
+                        <br>
+                        <div class="file-field input-field add-margin-bottom">
+                            <div class="waves-effect waves-dark btn ev-btn-dark w-300 fs-14">
+                                <span>Test Annotation File</span>
+                                <input id="{{'testAnnotation_'+$index}}"" name="{{'testAnnotation_'+$index}}" type="file" class="text-dark-black dark-autofill w-400" readonly>
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" value="{{challenge_phase.test_annotation}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="pass-title">Review Dataset Split </div>
+                  <div ng-repeat="datasetSplit in challengeCreateUsingUi.datasetSplit">
+
+                    <div class="input-field align-left">
+                         <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{$index+1}}" focus-if="datasetSplit.id" readonly>
+                          <label for="{{'datasetSplitId_'+$index}}">Dataset Split Id</label>
+                        </div>
+
+                        <div class="input-field align-left">
+                            <input id="{{'datasetSplitName_'+$index}}" name="{{'datasetSplitName_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{datasetSplit.name}}" focus-if="datasetSplit.name" readonly>
+                            <label for="{{'datasetSplitName_'+$index}}">Dataset Split Name</label>
+                        </div>
+
+                        <div class="input-field align-left add-margin-bottom">
+                            <input id="{{'datasetSplitCodename_'+$index}}" name="{{'datasetSplitCodename_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{datasetSplit.codename}}" focus-if="datasetSplit.codename" readonly>
+                            <label for="{{'datasetSplitCodename_'+$index}}">Dataset Split Codename</label>
+                        </div>
+                    </div>
+
+                <div class="pass-title">Review Challenge Phase Split </div>
+                  <div ng-repeat="challengePhaseSplit in challengeCreateUsingUi.data">
+                  <div class="row">
+                    <div class="rm-padding">
+                      <md-select name="{{'challengePhase_'+$index}}" ng-model="challengePhaseSplit.challenge_phase" class="rm-margin" readonly>
+                        <md-option value="{{challengePhaseSplit.challenge_phase}}">{{challengePhaseSplit.challenge_phase}}
+                        </md-option>
+                      </md-select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="rm-padding">
+                      <md-select name="{{'datasetSplit_'+$index}}" ng-model="challengePhaseSplit.dataset_split" class="rm-margin" readonly>
+                        <md-option value="{{challengePhaseSplit.dataset_split}}">{{challengePhaseSplit.dataset_split}}
+                        </md-option>
+                      </md-select>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="rm-padding">
+                      <md-select name="{{'leaderboard_'+$index}}" ng-model="challengePhaseSplit.leaderboard" class="rm-margin" readonly>
+                        <md-option value="{{challengePhaseSplit.leaderboard}}">{{challengePhaseSplit.leaderboard}}
+                        </md-option>
+                      </md-select>
+                    </div>
+                  </div>
+
+                  <div class="row add-margin-bottom">
+                    <div class="rm-padding">
+                      <md-select name="{{'visibility_'+$index}}" ng-model="challengePhaseSplit.visibility" class="rm-margin" readonly>
+                        <md-option value="{{challengePhaseSplit.visibility}}">{{challengePhaseSplit.visibility}}
+                        </md-option>
+                      </md-select>
+                    </div>
+                  </div>
+              </div>
+
+        </div>
+        </div>
+        <div class="cross">
+          <i class="fa fa-times"></i>
+        </div>
     </div>
 </section>
