@@ -68,3 +68,18 @@
 .cursor-pointer {
 	cursor: pointer;
 }
+
+.md-button:focus {
+	background-color: white;
+}
+
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header {
+    background: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px;
+}
+
+.auto {
+	overflow: auto !important;
+}

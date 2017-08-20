@@ -7,9 +7,9 @@
         .module('evalai')
         .controller('ChallengeCreateUsingUiCtrl', ChallengeCreateUsingUiCtrl);
 
-    ChallengeCreateUsingUiCtrl.$inject = ['utilities', 'loaderService', '$rootScope'];
+    ChallengeCreateUsingUiCtrl.$inject = ['utilities', 'loaderService', '$rootScope', '$state'];
 
-    function ChallengeCreateUsingUiCtrl(utilities, loaderService, $rootScope) {
+    function ChallengeCreateUsingUiCtrl(utilities, loaderService, $rootScope, $state) {
         var vm = this;
         var userKey = utilities.getData('userKey');
         vm.hostTeamId = utilities.getData('challengeHostTeamId');
@@ -24,6 +24,7 @@
         vm.step3 = false;
         vm.step4 = false;
         vm.step5 = false;
+        vm.step6 = false;
         vm.reviewScreen = false;
         vm.challengeEnableForum = false;
         vm.challengePublicallyAvailable = false;
@@ -180,8 +181,8 @@
              "name": null,
              "description": null,
              "codename": null,
-             "max_submissions_per_day": null,
-             "max_submissions": null,
+             "max_submissions_per_day": 0,
+             "max_submissions": 0,
              "start_date": null,
              "end_date": null,
              "test_annotation": null,
@@ -215,6 +216,8 @@
                     formdata.append("is_public", vm.challenge_phases[i].is_public || false);
                     formdata.append("test_annotation", vm.challenge_phases[i].test_annotation);
                     formdata.append("challenge", vm.challengeId);
+
+                    // utilities.storeData("test_annotation"+i, vm.challenge_phases[i].test_annotation);
 
                     parameters.method = 'POST';
                     parameters.url = 'challenges/challenge/challenge_phase/'+ vm.challengeId +'/step_3/';
@@ -356,7 +359,43 @@
                             vm.step1 = false;
                             vm.isFormError = false;
                             $rootScope.notify("success", "Step 5 is completed!");
+                            if (vm.reviewScreen == true){
+                                        vm.challengePhaseSplitsData = utilities.getData('challengePhaseSplits');
+                                        vm.challengePhase = utilities.getData('challengePhase');
+                                        vm.leaderboard = utilities.getData('leaderboard');
+                                        vm.datasetSplit = utilities.getData('datasetSplit');
+                                        vm.data = [];
+                                        for (var i=0; i<vm.challengePhaseSplitsData.length; i++) {
+                                            vm.data.push({
+                                            "challenge_phase": null,
+                                            "dataset_split": null,
+                                            "leaderboard": null,
+                                            "visibility": null
+                                            });
 
+                                        for (var j=0; j<vm.challengePhase.length; j++) {
+                                            if(vm.challengePhaseSplitsData[i].challenge_phase == vm.challengePhase[j].id) {
+                                                vm.data[i].challenge_phase = vm.challengePhase[j].name;
+                                            }
+
+                                        }
+                                        for (j=0; j<vm.datasetSplit.length; j++) {
+                                            if(vm.challengePhaseSplitsData[i].dataset_split == vm.datasetSplit[j].id) {
+                                                vm.data[i].dataset_split = vm.datasetSplit[j].name;
+                                            }
+                                        }
+                                        for (j=0; j<vm.leaderboard.length; j++) {
+                                            if (vm.challengePhaseSplitsData[i].leaderboard == vm.leaderboard[j].id) {
+                                                vm.data[i].leaderboard = vm.leaderboard[j].schema;
+                                            }
+                                        }
+                                        for (j=0; j<vm.visibility.length; j++) {
+                                            if (vm.challengePhaseSplitsData[i].visibility == vm.visibility[j].id) {
+                                                vm.data[i].visibility = vm.visibility[j].name;
+                                            }
+                                        }
+                                    }
+                            }
                             // utilities.deleteData('challenge');
                             // utilities.deleteData('challengePhase');
                             // utilities.deleteData('leaderboard');
@@ -415,7 +454,19 @@
         }
     }
 
+    vm.hideReviewScreen = function(){
+        vm.step6=true;
+        vm.reviewScreen = false;
+    };
 
+    vm.showReviewScreen = function() {
+        vm.reviewScreen = true;
+    };
+
+    vm.submitForm = function() {
+        $rootScope.notify('success', 'Challenge has been created successfully!');
+        $state.go('web.dashboard');
+    };
 
     }
 })();

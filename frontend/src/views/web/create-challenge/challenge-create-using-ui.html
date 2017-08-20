@@ -3,7 +3,7 @@
 <section ng-if="challengeCreateUsingUi.step1" class="ev-md-container text-center">
     <div class="row">
         <div class="col s12 m6 offset-m3">
-            <div class="ev-md-container ev-card-body">
+            <div class="ev-md-container ev-card-body auto">
                 <div class="pass-title">Create Challenge</div>
                 <form name="challengeCreateForm" ng-submit="challengeCreateUsingUi.challengeCreate(challengeCreateForm.$valid)" novalidate>
                     <div class="input-field align-left">
@@ -103,7 +103,7 @@
                                    ></trix-editor>
                     </div>
                     <div class="input-field align-left">
-                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challengeStartDate" class="md-input" readonly="readonly" placeholder="Start Date">
+                            <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challengeStartDate" class="md-input button-focus" placeholder="Start Date" readonly>
                             <span class="form-icon form-icon-dark">
                                 <i class="fa fa-info-circle cursor-pointer">
                                     <md-tooltip md-direction="right">
@@ -114,7 +114,7 @@
                     </div>
                     <div class="input-field align-left">
                         <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeEndDate"
-                         show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challengeEndDate" class="md-input" readonly="readonly" placeholder="End Date">
+                         show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challengeEndDate" class="md-input" placeholder="End Date" readonly>
                         <span class="form-icon form-icon-dark">
                             <i class="fa fa-info-circle cursor-pointer">
                                 <md-tooltip md-direction="right">
@@ -200,7 +200,7 @@
                     <form name="leaderboardCreateForm" ng-submit="challengeCreateUsingUi.leaderboardCreate(leaderboardCreateForm.$valid)" novalidate>
                     <div ng-repeat="leaderboard in challengeCreateUsingUi.leaderboards">
                     <div class="input-field align-left">
-                         <input id="{{'leaderboardId_'+ $index}}" name="{{'leaderboardId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" required>
+                         <input id="{{'leaderboardId_'+ $index}}" name="{{'leaderboardId_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="leaderboard.leaderboardId" pattern="[0-9]" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
@@ -307,7 +307,7 @@
                             <label for="{{'challengePhaseCodename_'+$index}}">Challenge Phase Codename</label>
                         </div>
                        <div class="input-field align-left">
-                            <input id="{{'challengeMaxSubmissionsPerDay_'+$index}}" name="{{'challengeMaxSubmissionsPerDay_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions_per_day" required>
+                            <input id="{{'challengeMaxSubmissionsPerDay_'+$index}}" name="{{'challengeMaxSubmissionsPerDay_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions_per_day" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
@@ -319,7 +319,7 @@
                         </div>
 
                         <div class="input-field align-left">
-                            <input id="{{'challengeMaxSubmissions_'+$index}}" name="{{'challengeMaxSubmissions_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions" required>
+                            <input id="{{'challengeMaxSubmissions_'+$index}}" name="{{'challengeMaxSubmissions_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" ng-model="challenge_phase.max_submissions" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
@@ -430,7 +430,7 @@
                 <form name="datasetSplitCreateForm" ng-submit="challengeCreateUsingUi.datasetSplitCreate(datasetSplitCreateForm.$valid)" novalidate>
                 <div ng-repeat="datasetSplit in challengeCreateUsingUi.datasetSplits">
                     <div class="input-field align-left">
-                         <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.datasetSplitId" required>
+                         <input id="{{'datasetSplitId_'+$index}}" name="{{'datasetSplitId_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" ng-model="datasetSplit.datasetSplitId" pattern="[0-9]" required>
                                 <span class="form-icon form-icon-dark">
                                     <i class="fa fa-info-circle cursor-pointer">
                                         <md-tooltip md-direction="right">
@@ -570,7 +570,7 @@
 
 <!-- Review Screen-->
 
-<section ng-if="challengeCreateUsingUi.reviewScreen">
+<section ng-if="challengeCreateUsingUi.reviewScreen" id="reviewScreen">
     <div class="row reviewScreen">
         <div class="col s12 m6 offset-m3">
             <div class="ev-md-container ev-card-body">
@@ -607,12 +607,13 @@
                     </div>
 
                     <div class="input-field align-left">
-                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeStartDate" show-todays-date="" ng-model="challengeCreateUsingUi.challenge.start_date" class="md-input" readonly="readonly">
+                      <input type="text" id="challengeStartDate" ng-model="challengeCreateUsingUi.challenge.start_date" readonly value="{{challengeCreateUsingUi.challenge.start_date}}" focus-if="challengeCreateUsingUi.challenge.start_date">
+                        <label for="challengeStartDate">Start Date</label>
                     </div>
 
                     <div class="input-field align-left">
-                        <input mdc-datetime-picker="" date="true" time="true" type="text" id="challengeEndDate"
-                         show-todays-date="" min-date="date" ng-model="challengeCreateUsingUi.challenge.end_date" class="md-input" readonly="readonly">
+                        <input type="text" id="challengeEndDate" ng-model="challengeCreateUsingUi.challenge.end_date" readonly value="{{challengeCreateUsingUi.challenge.end_date}}" focus-if="challengeCreateUsingUi.challenge.end_date">
+                        <label for="challengeEndDate">End Date</label>
                     </div>
 
                     <div class="input-field align-left">
@@ -675,21 +676,23 @@
                     </div>
 
                     <div class="input-field align-left">
-                      <input id="{{'challengeMaxSubmissionsPerDay_'+$index}}" name="{{'challengeMaxSubmissionsPerDay_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.max_submissions_per_day}}" focus-if="challenge_phase.max_submissions_per_day" readonly>   
+                      <input id="{{'challengeMaxSubmissionsPerDay_'+$index}}" name="{{'challengeMaxSubmissionsPerDay_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.max_submissions_per_day}}" focus-if="challenge_phase.max_submissions_per_day" readonly>   
                           <label for="{{'challengeMaxSubmissionsPerDay_'+$index}}">Max submissions per day</label>
                         </div>
 
                     <div class="input-field align-left">
-                        <input id="{{'challengeMaxSubmissions_'+$index}}" name="{{'challengeMaxSubmissions_'+$index}}" type="number" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.max_submissions}}" focus-if="challenge_phase.max_submissions" readonly>
+                        <input id="{{'challengeMaxSubmissions_'+$index}}" name="{{'challengeMaxSubmissions_'+$index}}" type="text" class="text-dark-black dark-autofill w-400" value="{{challenge_phase.max_submissions}}" focus-if="challenge_phase.max_submissions" readonly>
                         <label for="{{'challengeMaxSubmissions_'+$index}}">Max submissions Total</label>
                     </div>
 
                     <div class="input-field align-left">
-                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="{{'challengePhaseStartDate_'+$index}}" show-todays-date="" ng-model="challenge_phase.start_date" class="md-input" readonly="readonly" focus-if="challenge_phase.start_date">
+                      <input type="text" id="{{'challengePhaseStartDate_'+$index}}" value="{{challenge_phase.start_date}}" class="md-input" focus-if="challenge_phase.start_date" readonly>
+                      <label for="{{'challengePhaseStartDate_'+$index}}">Start Date</label>
                     </div>
 
                     <div class="input-field align-left">
-                      <input mdc-datetime-picker="" date="true" time="true" type="text" id="{{'challengePhaseEndDate_'+$index}}" show-todays-date="" ng-model="challenge_phase.end_date" class="md-input" focus-if="challenge_phase.end_date" readonly="readonly">
+                      <input type="text" id="{{'challengePhaseEndDate_'+$index}}" ng-model="challenge_phase.end_date" class="md-input" focus-if="challenge_phase.end_date" readonly>
+                      <label for="{{'challengePhaseEndDate_'+$index}}">End Date</label>
                     </div>
                         <div class="input-field align-left">
                           <input type="checkbox" id="{{'challengePhaseLeaderboardPublic_'+$index}}" name="{{'challengePhaseLeaderboardPublic_'+$index}}" ng-model="challenge_phase.leaderboard_public" readonly>
@@ -759,8 +762,24 @@
 
         </div>
         </div>
-        <div class="cross">
+        <div class="cross" ng-click="challengeCreateUsingUi.hideReviewScreen()">
           <i class="fa fa-times"></i>
         </div>
     </div>
+</section>
+
+<section ng-if="challengeCreateUsingUi.step6">
+  <div class="row">
+    <div class="col s12 m6 offset-m3">
+      <div class="ev-md-container ev-card-body">
+        <div class="pass-title">Submit</div>
+        <div class="col s6 m3 align-left rm-padding reg-control">
+            <button class="btn ev-btn-dark waves-effect waves-dark grad-btn grad-btn-dark fs-14" type="button" value="Review Form" ng-click="challengeCreateUsingUi.showReviewScreen()">Review Form</button>
+        </div>
+        <div class="col s6 m3 reg-control rm-padding offset-m2">
+            <button class="btn ev-btn-dark waves-effect waves-dark grad-btn grad-btn-dark fs-14" type="submit" value="submit" ng-click="challengeCreateUsingUi.submitForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
