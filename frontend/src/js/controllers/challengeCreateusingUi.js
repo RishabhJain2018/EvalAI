@@ -118,12 +118,20 @@
             }
         ];
 
+        vm.index_array = [];
+
+        vm.get_index = function(index){
+            vm.index_array.push(index);
+        };
+
         vm.addNewLeaderboard = function() {
             vm.leaderboards.push({"leaderboardId": null, "schema": null});
         };
 
-        vm.removeNewLeaderboard = function(index) {
-            vm.leaderboards.splice(index, 1);
+        vm.removeNewLeaderboard = function() {
+            var arr_len = vm.index_array.length;
+            vm.leaderboards.splice(vm.index_array[arr_len-1], 1);
+            vm.index_array.pop();
         };
 
         vm.leaderboardCreate = function(leaderboardCreateFormValid){
@@ -156,6 +164,9 @@
                     }
                 };
                 utilities.sendRequest(parameters);
+            }
+            else {
+                console.log("Not working properly");
             }
         };
 
@@ -266,7 +277,7 @@
             vm.datasetSplits.splice(index, 1);
         };
 
-        vm. datasetSplitCreate = function(datasetSplitCreateFormValid) {
+        vm.datasetSplitCreate = function(datasetSplitCreateFormValid) {
             if (datasetSplitCreateFormValid) {
                 var parameters = {};
                 parameters.method = 'POST';
@@ -337,7 +348,7 @@
         vm.challengeImageName = utilities.getData('challengeImage');
         vm.evalScriptName = utilities.getData('evalScript');
 
-        vm. challengePhaseSplitCreate = function(challengePhaseSplitCreateFormValid) {
+        vm.challengePhaseSplitCreate = function(challengePhaseSplitCreateFormValid) {
             if (challengePhaseSplitCreateFormValid) {
                 console.log("1");
                 var parameters = {};
